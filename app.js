@@ -27,19 +27,15 @@ function getData() {
     }).done(function (data) {
         let currently = data.currently;
         renderData(currently);
-        console.log(data);
     });
     coordinates.length = 0;
 }
 
-function getDate(data) {
-    let date = new Date(data.time * 1000);
-    let monthArr = ['Junuary', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    let month = date.getMonth();
-    console.log(monthArr[month]);
-    console.log(date.getFullYear());
-    console.log(date.getDate());
-}
+// function getDate(data) {
+//     let date = new Date(data.time * 1000);
+//     let monthArr = ['Junuary', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+//     let month = date.getMonth();
+// }
 
 
 class Weather {
@@ -119,10 +115,8 @@ function getCoordinates(city) {
             let lat = results[0].geometry.location.lat();
             let lng = results[0].geometry.location.lng();
             let name = results[0].address_components[0].long_name;
-            console.log(results[0].address_components[0]);
             cityName.innerHTML = name;
             coordinates.push(lat, lng);
-            console.log("location : " + results[0].geometry.location.lat() + " " + results[0].geometry.location.lng());
             getData();
         } else {
             console.log("Something got wrong " + status);
