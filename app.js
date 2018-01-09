@@ -1,47 +1,98 @@
-const secretKey = '74e2fcaef808ae167e9dedf219a7e6a0';
-const units = 'si';
-
-
 const searchInput = document.querySelector('.search-input');
 const searchButton = document.querySelector('.search-button');
 const cityName = document.querySelector('.city-name');
-
-const current = {
-    icon:        document.querySelector('.icon'),
-    summary:     document.querySelector('.current-summary'),
-    wind:        document.querySelector('.current-wind-num'),
-    temperature: document.querySelector('.current-temp'),
-    humidity:    document.querySelector('.current-humidity-num'),
-    pressure:    document.querySelector('.current-pressure-num')
-}
-
 let coordinates = [];
 
-function getData() {
-    let latitude = coordinates[0].toString();
-    let longitude = coordinates[1].toString();
-    let url = "https://api.darksky.net/forecast/" + secretKey + "/" + latitude + "," + longitude + "?units=" + units;
-    $.ajax({
-        url: url,
-        dataType: "jsonp"
-    }).done(function (data) {
-        let currently = data.currently;
-        renderData(currently);
-    });
-    coordinates.length = 0;
+const current = {
+    icon: document.querySelector('.icon'),
+    summ: document.querySelector('.current-summary'),
+    wind: document.querySelector('.current-wind-num'),
+    temperature: document.querySelector('.current-temp'),
+    humidity: document.querySelector('.current-humidity-num'),
+    pressure: document.querySelector('.current-pressure-num')
 }
 
-// function getDate(data) {
-//     let date = new Date(data.time * 1000);
-//     let monthArr = ['Junuary', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-//     let month = date.getMonth();
-// }
+const darkSky = {
+    url: 'https://api.darksky.net/forecast/',
+    key: '74e2fcaef808ae167e9dedf219a7e6a0',
+    units: ['si', 'us']
+}
 
+class Forecast {
+    constructor(entry) {
+        this.url = entry.url;
+        this.key = entry.key;
+        this.units = entry.units;
+        this.temp = (time, data) => {
+            time.getTemperature(data)
+        };
+        this.summ = (time, data) => {
+            time.getSummary(data)
+        };
+        this.icon = (time, data) => {
+            time.getIcon(data)
+        };
+        this.wind = (time, data) => {
+            time.getWind(data)
+        };
+        this.humidity = (time, data) => {
+            time.getHumidity(data)
+        };
+        this.pressure = (time, data) => {
+            time.getPressure(data)
+        };
+    }
+
+    getDataCurrenly(weather) {
+        let latitude = coordinates[0].toString();
+        let longitude = coordinates[1].toString();
+        let url = this.url + this.key + "/" + latitude + "," + longitude + "?units=" + this.units[0];
+        $.ajax({
+            url: url,
+            dataType: "jsonp"
+        }).done((data) => {
+            let currently = data.currently;
+            this.temp(weather, currently);
+            this.summ(weather, currently);
+            this.icon(weather, currently);
+            this.wind(weather, currently);
+            this.humidity(weather, currently);
+            this.pressure(weather, currently);
+            console.log('curent')
+        });
+        coordinates.length = 0;
+    }
+
+    getDataHourly() {
+        let latitude = coordinates[0].toString();
+        let longitude = coordinates[1].toString();
+        let url = this.url + this.key + "/" + latitude + "," + longitude + "?units=" + this.units[0];
+        $.ajax({
+            url: url,
+            dataType: "jsonp"
+        }).done((data) => {
+            let hourly = data.hourly.data;
+            let hourTemps = document.querySelectorAll('.hour-temp');
+            let hourTitles = document.querySelectorAll('.hour-title');
+            for(let index = 0; index < 12; index++) {
+                hourTemps.forEach((hourTemp, index) => {
+                    hourTemp.innerHTML = Math.round(hourly[index].temperature)
+                })
+                hourTitles.forEach((hourTitle, index) => {
+                    hourTitle.innerHTML = getDate(hourly[index]);
+                })               
+            }
+ 
+            console.log('hourly');
+        });
+        coordinates.length = 0;
+    }
+}
 
 class Weather {
     constructor(entry) {
         this.icon = entry.icon;
-        this.summary = entry.summary;
+        this.summ = entry.summ;
         this.wind = entry.wind;
         this.temperature = entry.temperature;
         this.humidity = entry.humidity;
@@ -52,29 +103,34 @@ class Weather {
         this.icon.className = 'icon wi';
         let dataIcon = data.icon;
         switch (dataIcon) {
-            case "partly-cloudy-night" : this.icon.classList.add("wi-night-alt-cloudy");
+            case "partly-cloudy-night": this.icon.classList.add("wi-night-alt-cloudy");
                 break;
 
-            case "clear-night" : this.icon.classList.add("wi-night-clear");
+            case "clear-night": this.icon.classList.add("wi-night-clear");
                 break;
 
-            case "cloudy" : this.icon.classList.add("wi-cloud");
+            case "cloudy": this.icon.classList.add("wi-cloud");
                 break;
 
-            case "clear-day" : this.icon.classList.add("wi-day-sunny");
+            case "clear-day": this.icon.classList.add("wi-day-sunny");
                 break;
 
-            case "rain" : this.icon.classList.add("wi-rain");
+            case "rain": this.icon.classList.add("wi-rain");
                 break;
 
-            case "partly-cloudy-day" : this.icon.classList.add("wi-cloudy");
+            case "partly-cloudy-day": this.icon.classList.add("wi-cloudy");
                 break;
-            case "snow" : this.icon.classList.add("wi-snow");
+
+            case "snow": this.icon.classList.add("wi-snow");
+                break;
+
+            case "fog": this.icon.classList.add("wi-fog");
+                break;
         }
     }
 
     getSummary(data) {
-        this.summary.innerHTML = data.summary;
+        this.summ.innerHTML = data.summary;
     }
 
     getWind(data) {
@@ -86,48 +142,68 @@ class Weather {
     }
 
     getHumidity(data) {
-        this.humidity.innerHTML = Math.round(data.humidity);
+        this.humidity.innerHTML = data.humidity*100;
     }
 
     getPressure(data) {
         this.pressure.innerHTML = Math.round(data.pressure);
     }
+}
+function getDate(data) {
+    let date = new Date(data.time * 1000);
+    let hour = date.getHours();
+    console.log(hour);
+    return hour + ":00";
+    
+}
+let currentContent = new Weather(current);
+let darkSkyForecast = new Forecast(darkSky);
 
+
+class Coordinates {
+    constructor(city) {
+        this.city = city;
+        this.geocoder = new google.maps.Geocoder(this.city);
+    }
+
+    getCoordinatesCurrently(content) {
+        this.geocoder.geocode({ 'address': this.city }, (results, status) => {
+            if (status == google.maps.GeocoderStatus.OK) {
+                let lat = results[0].geometry.location.lat();
+                let lng = results[0].geometry.location.lng();
+                let name = results[0].address_components[0].long_name;
+                cityName.innerHTML = name;
+                coordinates.push(lat, lng);
+                darkSkyForecast.getDataCurrenly(content);
+            } else {
+                console.log("Something got wrong " + status);
+            }
+        });
+    }
+
+    getCoordinatesHourly() {
+        // let geocoder = new google.maps.Geocoder(this.city);
+        this.geocoder.geocode({ 'address': this.city }, (results, status) => {
+            if (status == google.maps.GeocoderStatus.OK) {
+                let lat = results[0].geometry.location.lat();
+                let lng = results[0].geometry.location.lng();
+                let name = results[0].address_components[0].long_name;
+                cityName.innerHTML = name;
+                coordinates.push(lat, lng);
+                darkSkyForecast.getDataHourly();
+            } else {
+                console.log("Something got wrong " + status);
+            }
+        });
+    }
 }
 
-
-let currentWeather = new Weather(current);
-
-
-function renderData(data) {
-    currentWeather.getSummary(data);
-    currentWeather.getIcon(data);
-    currentWeather.getTemperature(data);
-    currentWeather.getWind(data);
-    currentWeather.getHumidity(data);
-    currentWeather.getPressure(data);
-}
-
-function getCoordinates(city) {
-    let geocoder = new google.maps.Geocoder(city);
-    geocoder.geocode({ 'address': city }, (results, status) => {
-        if (status == google.maps.GeocoderStatus.OK) {
-            let lat = results[0].geometry.location.lat();
-            let lng = results[0].geometry.location.lng();
-            let name = results[0].address_components[0].long_name;
-            cityName.innerHTML = name;
-            coordinates.push(lat, lng);
-            getData();
-        } else {
-            console.log("Something got wrong " + status);
-        }
-    });
-}
 
 searchButton.addEventListener('click', () => {
     let inputValue = searchInput.value;
-    getCoordinates(inputValue);
-})
-
+    let googleCoordinates = new Coordinates(inputValue);
+    googleCoordinates.getCoordinatesCurrently(currentContent);
+    googleCoordinates.getCoordinatesHourly();
+});
 
 
