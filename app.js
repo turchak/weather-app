@@ -82,7 +82,6 @@ class Forecast {
                     hourTitle.innerHTML = getDate(hourly[index]);
                 })               
             }
- 
             console.log('hourly');
         });
         coordinates.length = 0;
@@ -152,7 +151,6 @@ class Weather {
 function getDate(data) {
     let date = new Date(data.time * 1000);
     let hour = date.getHours();
-    console.log(hour);
     return hour + ":00";
     
 }
@@ -182,7 +180,6 @@ class Coordinates {
     }
 
     getCoordinatesHourly() {
-        // let geocoder = new google.maps.Geocoder(this.city);
         this.geocoder.geocode({ 'address': this.city }, (results, status) => {
             if (status == google.maps.GeocoderStatus.OK) {
                 let lat = results[0].geometry.location.lat();
