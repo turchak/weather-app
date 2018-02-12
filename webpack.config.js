@@ -13,7 +13,7 @@ const config = {
 
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, './dist', 'js')
+        path: path.resolve(__dirname, './dist')
     },
 
     devtool: 'source-map',
@@ -64,7 +64,7 @@ const config = {
         },
         {
             test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
                 name: '/font/[name].[ext]',
                 // outputPath: '/font'
@@ -101,13 +101,14 @@ if (isProduction) {
             disable: true
         }),
         new HtmlWebpackPlugin({
-            script: "https://maps.googleapis.com/maps/api/js?key=AIzaSyD3LTkgH_ASYBXH-63RyoCNnklwXscJVek&libraries=places&language=en",
+            script: `<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3LTkgH_ASYBXH-63RyoCNnklwXscJVek&libraries=places&language=en"></script>`,
             template: 'src/index.html'
         })
     ]);
 
     config.devServer = {
-        contentBase: path.resolve(__dirname, 'dist', 'js'),
+        contentBase: path.resolve(__dirname, 'dist'),
+        publicPath: '/',
         port: 9000
     };
 }
