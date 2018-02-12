@@ -14681,8 +14681,8 @@ var Weather = function () {
         };
         this.settings = {
             url: {
-                weather: 'api.weatherbit.io/v2.0/current',
-                forecast: 'api.openweathermap.org/data/2.5/forecast'
+                weather: 'https://api.weatherbit.io/v2.0/current',
+                forecast: 'https://api.openweathermap.org/data/2.5/forecast'
             },
             key: '5499a420699d421297f7f99e774cfc94',
             units: {
