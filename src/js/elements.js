@@ -1,17 +1,24 @@
 const elements = {
     header: document.querySelector('.header'),
+    content: document.querySelector('.content'),
     search: {
         button: document.querySelector('.search__button'),
         input:  document.querySelector('.search__input'),
     },
     current: {
-        city:     document.querySelector('.city-name'),
+        city:     document.querySelector('.city'),
         icon:     document.querySelector('.icon'),
-        humidity: document.querySelector('.current-humidity-num'),
-        pressure: document.querySelector('.current-pressure-num'),
-        summary:  document.querySelector('.current-summary'),
-        temp:     document.querySelector('.current-temp'),
-        wind:     document.querySelector('.current-wind-num'),
+        humidity: document.querySelector('.current__num--humidity'),
+        pressure: document.querySelector('.current__num--pressure'),
+        summary:  document.querySelector('.current__condition-summary'),
+        temp:     document.querySelector('.current__condition-temp'),
+        wind:     document.querySelector('.current__num--wind'),
+    },
+    forecast: {
+        day:     document.querySelector('.day'),
+        days:    document.querySelector('.days'),
+        icon:    document.querySelector('.day__icon'),
+        summary: document.querySelector('.day__summary')
     }
 };
 

@@ -19,10 +19,10 @@
         </div>
     </header>
     <main class="content">
-        <div class="current">
-            <div class="current-detail">
+        <section class="current">
+            <div class="current__detail">
                 <div class="current-wind">
-                    <span class="current-wind-label">Wind:</span>
+                    <span class="current__info current-wind-label">Wind:</span>
                     <span class="current-wind-num">n/a</span>
                     <span class="current-wind-unit">m/s</span>
                 </div>
@@ -37,13 +37,24 @@
                     <span class="current-pressure-unit">hPa</span>
                 </div>
             </div>
-            <p class="city-name">City Name</p>
+            <h2 class="city-name">City Name</h2>
             <div class="current-condition">
                 <i class="icon wi wi-alien"></i>
                 <span class="current-temp">n/a</span>
                 <span class="current-summary">Summary</span>
             </div>
-        </div>
+        </section>
+
+        <section class="daily">
+            <h2 class="daily__title">Daily</h2>
+            <ul class="days">
+                <li class="day">
+                    <h3 class="day__title"></h3>
+                    <span class="day__icon"></span>
+                    <span class="day__summary"></span>
+                </li>
+            </div>
+        </section>
     </main>
     <footer class="footer"></footer>
    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3LTkgH_ASYBXH-63RyoCNnklwXscJVek&libraries=places&language=en"></script>

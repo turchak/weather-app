@@ -4,14 +4,20 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: 'Open Sand', sans-serif;
+}
+
+h2 {
+    margin: 15px 0;
+    font-size: 20px;
+}
+
 .header {
     max-width: 800px;
     margin: 0 auto;
 }
 
-body {
-    font-family: 'Open Sand', sans-serif;
-}
 
 .search {
     display: flex;
@@ -57,53 +63,34 @@ body {
             box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.1);
         }
     }
-
 }
 
 .content {
-    padding-top: 50px;
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 50px 15px 0 15px;
 }
 
 .current {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
 
-.current-detail {
-    display: flex;
-    justify-content: space-between;
-    width: 500px;
-}
+    &__detail {
+        display: flex;
+        justify-content: space-between;
+        width: 500px;
+    }
 
-.current-wind {
-    display: flex;
-    justify-content: center;
-    width: calc(100% / 3);
-}
+    &__info {
+        display: flex;
+        justify-content: center;
+        width: calc(100% / 3);
+    }
 
-.current-wind-num {
-    margin: 0 5px;
-}
-
-.current-humidity {
-    display: flex;
-    justify-content: center;
-    width: calc(100% / 3);
-}
-
-.current-humidity-num {
-    margin: 0 5px;
-}
-
-.current-pressure {
-    display: flex;
-    justify-content: center;
-    width: calc(100% / 3);
-}
-
-.current-pressure-num {
-    margin: 0 5px;
+    &__num {
+        margin: 0 5px;
+    }
 }
 
 .day {
@@ -112,15 +99,4 @@ body {
     width: 600px;
     margin: 0 auto;
     padding-top: 30px;
-}
-
-.hour {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.hour-temp {
-    margin-top: 5px;
 }

@@ -8,17 +8,18 @@ import { createClient } from '@google/maps';
 
 
 class Coordinates {
-    constructor() {
+    constructor(city) {
+        this.city = city;
         this.googleMapsClient = createClient({
             key: 'AIzaSyD3LTkgH_ASYBXH-63RyoCNnklwXscJVek',
             language: 'en',
             Promise: Promise
         });
     }
-    getData(city) {
+    getData() {
         return new Promise( resolve => {
             const results = this.googleMapsClient.geocode({
-                address: city
+                address: this.city
             }).asPromise()
                 .then(response => {
                     return response.json.results[0];
@@ -42,13 +43,14 @@ class Weather {
         this.settings = {
             url: {
                 weather:  'https://api.weatherbit.io/v2.0/current',
-                forecast: 'https://api.openweathermap.org/data/2.5/forecast'
+                forecast: 'https://api.weatherbit.io/v2.0/forecast/daily'
             },
-            key:         '5499a420699d421297f7f99e774cfc94',
+            key: '5499a420699d421297f7f99e774cfc94',
             units: {
-                metric:     'M',
-                fahrenheit: 'I'
-            }
+                fahrenheit: 'I',
+                metric:     'M'
+            },
+            days: '5'
         };
     }
 
@@ -62,6 +64,18 @@ class Weather {
                 new Render(this.info).showCurrent();     
             });
     }
+
+    getForecast() {
+        const url = this.settings.url.forecast + '?lat=' + this.info.coordinates.lat + '&lon=' + this.info.coordinates.lng + '&key=' + this.settings.key + '&units=' + this.settings.units.metric + '&days=' + this.settings.days;
+        fetch(url)
+            .then(response => {
+                return response.json();
+            }).then(results => {
+                this.info.forecast = results.data;
+                console.log(this.info);
+                // new Render(this.info).showCurrent();     
+            });
+    }
 }
 
 
@@ -69,12 +83,14 @@ class Weather {
 
 elements.header.addEventListener('click', ({ target }) => {
     if (target === elements.search.button) {
-        new Coordinates().getData(elements.search.input.value)
+        new Coordinates(elements.search.input.value).getData()
             .then(results => {
                 new Weather(results).getCurrent();
+                new Weather(results).getForecast();
             });
     }
 });
 
+export { Coordinates, Weather } ;
 
-new OnInit();
+new OnInit('London, UK');
