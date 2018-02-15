@@ -15,10 +15,12 @@ const elements = {
         wind:     document.querySelector('.current__num--wind'),
     },
     forecast: {
+        date:    document.querySelector('.day__title'),
         day:     document.querySelector('.day'),
         days:    document.querySelector('.days'),
         icon:    document.querySelector('.day__icon'),
-        summary: document.querySelector('.day__summary')
+        summary: document.querySelector('.day__summary'),
+        temp:    document.querySelector('.day__temp')
     }
 };
 

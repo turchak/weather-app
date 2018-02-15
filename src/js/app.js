@@ -61,7 +61,7 @@ class Weather {
                 return response.json();
             }).then(results => {
                 this.info.weather = results.data[0];
-                new Render(this.info).showCurrent();     
+                new Render().showCurrent(this.info);     
             });
     }
 
@@ -72,8 +72,7 @@ class Weather {
                 return response.json();
             }).then(results => {
                 this.info.forecast = results.data;
-                console.log(this.info);
-                // new Render(this.info).showCurrent();     
+                new Render().showForecast(this.info);
             });
     }
 }

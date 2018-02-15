@@ -21,27 +21,27 @@
     <main class="content">
         <section class="current">
             <div class="current__detail">
-                <div class="current-wind">
-                    <span class="current__info current-wind-label">Wind:</span>
-                    <span class="current-wind-num">n/a</span>
-                    <span class="current-wind-unit">m/s</span>
+                <div class="current__info current__info--wind">
+                    <span class="current__label current__label--wind">Wind:</span>
+                    <span class="current__num current__num--wind">n/a</span>
+                    <span class="current__unit current__unit--wind">m/s</span>
                 </div>
-                <div class="current-humidity">
-                    <span class="current-humidity-label">Humidity:</span>
-                    <span class="current-humidity-num">n/a</span>
-                    <span class="current-humidity-unit">%</span>
+                <div class="current__info current__info--humidity">
+                    <span class="current__label current__label--humidity">Humidity:</span>
+                    <span class="current__num current__num--humidity">n/a</span>
+                    <span class="current__unit current__unit--humidity">%</span>
                 </div>
-                <div class="current-pressure">
-                    <span class="current-pressure-label">Pressure:</span>
-                    <span class="current-pressure-num">n/a</span>
-                    <span class="current-pressure-unit">hPa</span>
+                <div class="current__info current__info--pressure">
+                    <span class="current__label current__label--pressure">Pressure:</span>
+                    <span class="current__num current__num--pressure">n/a</span>
+                    <span class="current__unit current__unit--pressure">hPa</span>
                 </div>
             </div>
-            <h2 class="city-name">City Name</h2>
-            <div class="current-condition">
+            <h2 class="city">City Name</h2>
+            <div class="current__condition">
                 <i class="icon wi wi-alien"></i>
-                <span class="current-temp">n/a</span>
-                <span class="current-summary">Summary</span>
+                <span class="current__condition-temp">n/a</span>
+                <span class="current__condition-summary">Summary</span>
             </div>
         </section>
 
@@ -50,10 +50,11 @@
             <ul class="days">
                 <li class="day">
                     <h3 class="day__title"></h3>
+                    <span class="day__temp"></span>
                     <span class="day__icon"></span>
                     <span class="day__summary"></span>
                 </li>
-            </div>
+            </ul>
         </section>
     </main>
     <footer class="footer"></footer>

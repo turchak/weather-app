@@ -1,22 +1,21 @@
 import elements from './elements';
 
 class Render {
-    constructor(data) {
-        this.info = {
-            current:     {
-                humidity: data.weather.rh,
-                city:     data.coordinates.city,
-                pressure: data.weather.pres,
-                summary:  data.weather.weather.description,
-                temp:     data.weather.temp,
-                wind:     data.weather.wind_spd,
-                icon:     data.weather.weather.icon
-            },
-            forecast:    data.forecast
-        };
+    constructor() {
+        this.info = {};
     }
     
-    showCurrent() {
+    showCurrent(data) {
+        const current = {
+            humidity: data.weather.rh,
+            city:     data.coordinates.city,
+            pressure: data.weather.pres,
+            summary:  data.weather.weather.description,
+            temp:     data.weather.temp,
+            wind:     data.weather.wind_spd,
+            icon:     data.weather.weather.icon
+        };
+        this.info.current = current;
         elements.current.city.innerHTML     = this.info.current.city;
         elements.current.humidity.innerHTML = this.info.current.humidity;
         elements.current.pressure.innerHTML = this.info.current.pressure;
@@ -24,6 +23,132 @@ class Render {
         elements.current.temp.innerHTML     = this.info.current.temp;
         elements.current.wind.innerHTML     = this.info.current.wind;
         this.showIcon(this.info.current.icon, elements.current.icon);     
+    }
+
+    showForecast(data) {
+        this.info.forecast = [];
+        const days = data.forecast;
+        const period = document.querySelector('.days');
+        days.forEach(day => {
+            this.info.forecast.push(day);
+        });
+        const list = document.importNode(elements.forecast.days, true);
+        list.innerHTML = '';
+
+
+        const showDay = day => {
+            elements.forecast.date.innerHTML    = this.convertDate(day.ts);
+            elements.forecast.summary.innerHTML = day.weather.description;
+            elements.forecast.temp.innerHTML    = day.temp;
+            this.showIcon(day.weather.icon, elements.forecast.icon);
+            const container = document.importNode(elements.forecast.day, true);
+            return container;
+        };
+        
+        this.info.forecast.forEach((day) => {
+            list.appendChild(showDay(day));
+        });
+
+        period.parentNode.replaceChild(list, period);
+    }
+
+    convertDate(date) {
+        const convertDow = dow => { 
+            let result;
+            switch(dow) {
+            case 0:
+                result = 'Sun';
+                break;
+
+            case 1:
+                result = 'Mon';
+                break;
+
+            case 2:
+                result = 'Tue';
+                break;
+
+            case 3:
+                result = 'Wed';
+                break; 
+
+            case 4:
+                result = 'Thu';
+                break;
+
+            case 5:
+                result = 'Fri';
+                break;
+
+            case 6:
+                result = 'Sat';
+                break;                      
+            }
+            return result;    
+        };
+
+        const convertMonth = month => {
+            let result;
+            switch(month) {
+            case 0:
+                result = 'Jan';
+                break;
+
+            case 1:
+                result = 'Feb';
+                break;
+
+            case 2:
+                result = 'Mar';
+                break;
+
+            case 3:
+                result = 'Apr';
+                break; 
+
+            case 4:
+                result = 'May';
+                break;
+
+            case 5:
+                result = 'June';
+                break;
+
+            case 6:
+                result = 'July';
+                break;
+                
+            case 7:
+                result = 'Aug';
+                break;
+
+            case 8:
+                result = 'Sept';
+                break;
+
+            case 9:
+                result = 'Oct';
+                break;
+
+            case 10:
+                result = 'Nov';
+                break;
+
+            case 11:
+                result = 'Dec';
+                break;                                            
+            }
+            return result;   
+        };
+
+
+        const time = new Date(date*1000);
+        const day = time.getDate();
+        const dow = convertDow(time.getDay());
+        const month = convertMonth(time.getMonth());
+        const period = dow + ' ' + day + ' ' + month;
+        
+        return period;
     }
 
     showIcon(dataIcon, icon) {
@@ -135,7 +260,7 @@ class Render {
             icon.classList.add('wi-night-fog');
             break;
         
-        case '01d':
+        case 'с01d':
             icon.classList.add('wi-day-sunny');
             break;
         
@@ -161,9 +286,6 @@ class Render {
             icon.classList.add('wi-night-alt-cloudy-high');
             break; 
         }
-    }
-
-    showForecast() {
     }
 }
 

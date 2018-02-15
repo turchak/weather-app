@@ -19,6 +19,7 @@ class OnInit {
         new Coordinates(city).getData()
             .then(results => {
                 new Weather(results).getCurrent();
+                new Weather(results).getForecast();
             });
     }
 }

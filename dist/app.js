@@ -8509,19 +8509,21 @@ var elements = {
         input: document.querySelector('.search__input')
     },
     current: {
-        city: document.querySelector('.city-name'),
+        city: document.querySelector('.city'),
         icon: document.querySelector('.icon'),
-        humidity: document.querySelector('.current-humidity-num'),
-        pressure: document.querySelector('.current-pressure-num'),
-        summary: document.querySelector('.current-summary'),
-        temp: document.querySelector('.current-temp'),
-        wind: document.querySelector('.current-wind-num')
+        humidity: document.querySelector('.current__num--humidity'),
+        pressure: document.querySelector('.current__num--pressure'),
+        summary: document.querySelector('.current__condition-summary'),
+        temp: document.querySelector('.current__condition-temp'),
+        wind: document.querySelector('.current__num--wind')
     },
     forecast: {
+        date: document.querySelector('.day__title'),
         day: document.querySelector('.day'),
         days: document.querySelector('.days'),
         icon: document.querySelector('.day__icon'),
-        summary: document.querySelector('.day__summary')
+        summary: document.querySelector('.day__summary'),
+        temp: document.querySelector('.day__temp')
     }
 };
 
@@ -10487,7 +10489,7 @@ var Weather = function () {
                 return response.json();
             }).then(function (results) {
                 _this2.info.weather = results.data[0];
-                new _render2.default(_this2.info).showCurrent();
+                new _render2.default().showCurrent(_this2.info);
             });
         }
     }, {
@@ -10500,8 +10502,7 @@ var Weather = function () {
                 return response.json();
             }).then(function (results) {
                 _this3.info.forecast = results.data;
-                console.log(_this3.info);
-                // new Render(this.info).showCurrent();     
+                new _render2.default().showForecast(_this3.info);
             });
         }
     }]);
@@ -14814,7 +14815,7 @@ exports = module.exports = __webpack_require__(81)(true);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);", ""]);
 
 // module
-exports.push([module.i, "* {\n  box-sizing: border-box; }\n\nbody {\n  font-family: 'Open Sand', sans-serif; }\n\nh2 {\n  margin: 15px 0;\n  font-size: 20px; }\n\n.header {\n  max-width: 800px;\n  margin: 0 auto; }\n\n.search {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding-top: 30px; }\n  .search__input {\n    color: #2e3d49;\n    border-radius: 4px;\n    display: block;\n    box-sizing: border-box;\n    width: 300px;\n    font-size: .9375em;\n    padding: .75em 2.75em .75em 1em;\n    border: 1px solid #dbe2e8;\n    box-shadow: 0 0.1em 0.125em 0 rgba(46, 61, 73, 0.08);\n    outline: none;\n    transition: box-shadow .3s ease; }\n    .search__input:focus {\n      box-shadow: 0 0.07em 0.1125em 0 rgba(46, 61, 73, 0.06); }\n  .search__button {\n    padding: .75em 3em;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 12px 15px 20px rgba(0, 0, 0, 0.1);\n    font-size: .9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out, 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .search__button:hover {\n      background: #148bb1;\n      box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.1); }\n\n.content {\n  max-width: 1170px;\n  margin: 0 auto;\n  padding: 50px 15px 0 15px; }\n\n.current {\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n  .current__info {\n    display: flex;\n    justify-content: space-between;\n    width: 500px; }\n  .current__wind {\n    display: flex;\n    justify-content: center;\n    width: calc(100% / 3); }\n    .current__wind-num {\n      margin: 0 5px; }\n  .current__humidity {\n    display: flex;\n    justify-content: center;\n    width: calc(100% / 3); }\n\n.current-humidity {\n  display: flex;\n  justify-content: center;\n  width: calc(100% / 3); }\n\n.current-humidity-num {\n  margin: 0 5px; }\n\n.current-pressure {\n  display: flex;\n  justify-content: center;\n  width: calc(100% / 3); }\n\n.current-pressure-num {\n  margin: 0 5px; }\n\n.day {\n  display: flex;\n  justify-content: space-between;\n  width: 600px;\n  margin: 0 auto;\n  padding-top: 30px; }\n\n.hour {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center; }\n\n.hour-temp {\n  margin-top: 5px; }\n", "", {"version":3,"sources":["C:/home/kottans/task_10/src/scss/src/scss/main.scss"],"names":[],"mappings":"AAEA;EACI,uBAAsB,EACzB;;AAED;EACI,qCAAoC,EACvC;;AAED;EACI,eAAc;EACd,gBAAe,EAClB;;AAED;EACI,iBAAgB;EAChB,eAAc,EACjB;;AAGD;EACI,cAAa;EACb,wBAAuB;EACvB,oBAAmB;EACnB,kBAAiB,EAwCpB;EAtCG;IACI,eAAc;IACd,mBAAkB;IAClB,eAAc;IACd,uBAAsB;IACtB,aAAY;IACZ,mBAAkB;IAClB,gCAA+B;IAC/B,0BAAyB;IACzB,qDAAiD;IACjD,cAAa;IACb,gCAA+B,EAKlC;IAhBD;MAcQ,uDAAmD,EACtD;EAGL;IACI,mBAAkB;IAClB,aAAY;IACZ,mBAAkB;IAClB,8CAA6C;IAC7C,mBAAkB;IAClB,iBAAgB;IAChB,wBAAuB;IACvB,0BAAyB;IACzB,0GAAyG;IACzG,YAAW;IACX,cAAa;IACb,oBAAmB;IACnB,gBAAe,EAMlB;IAnBD;MAgBQ,oBAAmB;MACnB,6CAA4C,EAC/C;;AAIT;EACI,kBAAiB;EACjB,eAAc;EACd,0BAAyB,EAC5B;;AAED;EACI,cAAa;EACb,uBAAsB;EACtB,oBAAmB,EAuBtB;EArBG;IACI,cAAa;IACb,+BAA8B;IAC9B,aAAY,EACf;EAED;IACI,cAAa;IACb,wBAAuB;IACvB,sBAAqB,EAKxB;IAHG;MACI,cAAa,EAChB;EAGL;IACI,cAAa;IACb,wBAAuB;IACvB,sBAAqB,EACxB;;AAKL;EACI,cAAa;EACb,wBAAuB;EACvB,sBAAqB,EACxB;;AAED;EACI,cAAa,EAChB;;AAED;EACI,cAAa;EACb,wBAAuB;EACvB,sBAAqB,EACxB;;AAED;EACI,cAAa,EAChB;;AAED;EACI,cAAa;EACb,+BAA8B;EAC9B,aAAY;EACZ,eAAc;EACd,kBAAiB,EACpB;;AAED;EACI,cAAa;EACb,uBAAsB;EACtB,wBAAuB;EACvB,oBAAmB,EACtB;;AAED;EACI,gBAAe,EAClB","file":"main.scss","sourcesContent":["@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');\r\n\r\n* {\r\n    box-sizing: border-box;\r\n}\r\n\r\nbody {\r\n    font-family: 'Open Sand', sans-serif;\r\n}\r\n\r\nh2 {\r\n    margin: 15px 0;\r\n    font-size: 20px;\r\n}\r\n\r\n.header {\r\n    max-width: 800px;\r\n    margin: 0 auto;\r\n}\r\n\r\n\r\n.search {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    padding-top: 30px;\r\n\r\n    &__input {\r\n        color: #2e3d49;\r\n        border-radius: 4px;\r\n        display: block;\r\n        box-sizing: border-box;\r\n        width: 300px;\r\n        font-size: .9375em;\r\n        padding: .75em 2.75em .75em 1em;\r\n        border: 1px solid #dbe2e8;\r\n        box-shadow: 0 0.1em 0.125em 0 rgba(46,61,73,0.08);\r\n        outline: none;\r\n        transition: box-shadow .3s ease;\r\n\r\n        &:focus {\r\n            box-shadow: 0 0.07em 0.1125em 0 rgba(46,61,73,0.06);\r\n        }\r\n    }\r\n\r\n    &__button {\r\n        padding: .75em 3em;\r\n        border: none;\r\n        border-radius: 4px;\r\n        box-shadow: 12px 15px 20px rgba(0, 0, 0, 0.1);\r\n        font-size: .9375em;\r\n        font-weight: 300;\r\n        letter-spacing: 0.165em;\r\n        text-transform: uppercase;\r\n        transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out, 0.2s border-color ease-in-out;\r\n        color: #fff;\r\n        outline: none;\r\n        background: #02b3e4;\r\n        cursor: pointer;\r\n\r\n        &:hover {\r\n            background: #148bb1;\r\n            box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.1);\r\n        }\r\n    }\r\n}\r\n\r\n.content {\r\n    max-width: 1170px;\r\n    margin: 0 auto;\r\n    padding: 50px 15px 0 15px;\r\n}\r\n\r\n.current {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n\r\n    &__info {\r\n        display: flex;\r\n        justify-content: space-between;\r\n        width: 500px;\r\n    }\r\n\r\n    &__wind {\r\n        display: flex;\r\n        justify-content: center;\r\n        width: calc(100% / 3);\r\n\r\n        &-num {\r\n            margin: 0 5px;\r\n        }\r\n    }\r\n\r\n    &__humidity {\r\n        display: flex;\r\n        justify-content: center;\r\n        width: calc(100% / 3);\r\n    }\r\n}\r\n\r\n\r\n\r\n.current-humidity {\r\n    display: flex;\r\n    justify-content: center;\r\n    width: calc(100% / 3);\r\n}\r\n\r\n.current-humidity-num {\r\n    margin: 0 5px;\r\n}\r\n\r\n.current-pressure {\r\n    display: flex;\r\n    justify-content: center;\r\n    width: calc(100% / 3);\r\n}\r\n\r\n.current-pressure-num {\r\n    margin: 0 5px;\r\n}\r\n\r\n.day {\r\n    display: flex;\r\n    justify-content: space-between;\r\n    width: 600px;\r\n    margin: 0 auto;\r\n    padding-top: 30px;\r\n}\r\n\r\n.hour {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.hour-temp {\r\n    margin-top: 5px;\r\n}"],"sourceRoot":""}]);
+exports.push([module.i, "* {\n  box-sizing: border-box; }\n\nbody {\n  font-family: 'Open Sand', sans-serif; }\n\nh2 {\n  margin: 0;\n  font-size: 20px; }\n\nh3 {\n  margin: 0;\n  font-size: 16px; }\n\nul {\n  padding: 0;\n  list-style: none; }\n\n.header {\n  max-width: 800px;\n  margin: 0 auto; }\n\n.search {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding-top: 30px; }\n  .search__input {\n    color: #2e3d49;\n    border-radius: 4px;\n    display: block;\n    box-sizing: border-box;\n    width: 300px;\n    font-size: .9375em;\n    padding: .75em 2.75em .75em 1em;\n    border: 1px solid #dbe2e8;\n    box-shadow: 0 0.1em 0.125em 0 rgba(46, 61, 73, 0.08);\n    outline: none;\n    transition: box-shadow .3s ease; }\n    .search__input:focus {\n      box-shadow: 0 0.07em 0.1125em 0 rgba(46, 61, 73, 0.06); }\n  .search__button {\n    padding: .75em 3em;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 12px 15px 20px rgba(0, 0, 0, 0.1);\n    font-size: .9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out, 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .search__button:hover {\n      background: #148bb1;\n      box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.1); }\n\n.content {\n  max-width: 1170px;\n  margin: 0 auto;\n  padding: 50px 15px 0 15px; }\n\n.current {\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n  .current__detail {\n    display: flex;\n    justify-content: space-between;\n    width: 500px;\n    margin-bottom: 10px; }\n  .current__info {\n    display: flex;\n    justify-content: center;\n    width: calc(100% / 3); }\n  .current__num {\n    margin: 0 5px; }\n\n.days {\n  display: flex;\n  justify-content: space-between; }\n\n.day {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  text-align: center; }\n  .day__title {\n    width: 100%;\n    align-self: center; }\n  .day__temp {\n    width: 100%;\n    margin: 15px 0; }\n  .day__summary {\n    width: 100%; }\n", "", {"version":3,"sources":["C:/home/kottans/task_10/src/scss/src/scss/main.scss"],"names":[],"mappings":"AAEA;EACI,uBAAsB,EACzB;;AAED;EACI,qCAAoC,EACvC;;AAED;EACI,UAAS;EACT,gBAAe,EAClB;;AAED;EACI,UAAS;EACT,gBAAe,EAClB;;AAED;EACI,WAAU;EACV,iBAAgB,EACnB;;AAED;EACI,iBAAgB;EAChB,eAAc,EACjB;;AAGD;EACI,cAAa;EACb,wBAAuB;EACvB,oBAAmB;EACnB,kBAAiB,EAwCpB;EAtCG;IACI,eAAc;IACd,mBAAkB;IAClB,eAAc;IACd,uBAAsB;IACtB,aAAY;IACZ,mBAAkB;IAClB,gCAA+B;IAC/B,0BAAyB;IACzB,qDAAiD;IACjD,cAAa;IACb,gCAA+B,EAKlC;IAhBD;MAcQ,uDAAmD,EACtD;EAGL;IACI,mBAAkB;IAClB,aAAY;IACZ,mBAAkB;IAClB,8CAA6C;IAC7C,mBAAkB;IAClB,iBAAgB;IAChB,wBAAuB;IACvB,0BAAyB;IACzB,0GAAyG;IACzG,YAAW;IACX,cAAa;IACb,oBAAmB;IACnB,gBAAe,EAMlB;IAnBD;MAgBQ,oBAAmB;MACnB,6CAA4C,EAC/C;;AAIT;EACI,kBAAiB;EACjB,eAAc;EACd,0BAAyB,EAC5B;;AAED;EACI,cAAa;EACb,uBAAsB;EACtB,oBAAmB,EAkBtB;EAhBG;IACI,cAAa;IACb,+BAA8B;IAC9B,aAAY;IACZ,oBAAmB,EACtB;EAED;IACI,cAAa;IACb,wBAAuB;IACvB,sBAAqB,EACxB;EAED;IACI,cAAa,EAChB;;AAGL;EACI,cAAa;EACb,+BAA8B,EACjC;;AAED;EACI,cAAa;EACb,wBAAuB;EACvB,gBAAe;EACf,mBAAkB,EAerB;EAbG;IACI,YAAW;IACX,mBAAkB,EACrB;EAED;IACI,YAAW;IACX,eAAc,EACjB;EAED;IACI,YAAW,EACd","file":"main.scss","sourcesContent":["@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');\r\n\r\n* {\r\n    box-sizing: border-box;\r\n}\r\n\r\nbody {\r\n    font-family: 'Open Sand', sans-serif;\r\n}\r\n\r\nh2 {\r\n    margin: 0;\r\n    font-size: 20px;\r\n}\r\n\r\nh3 {\r\n    margin: 0;\r\n    font-size: 16px;\r\n}\r\n\r\nul {\r\n    padding: 0;\r\n    list-style: none;\r\n}\r\n\r\n.header {\r\n    max-width: 800px;\r\n    margin: 0 auto;\r\n}\r\n\r\n\r\n.search {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    padding-top: 30px;\r\n\r\n    &__input {\r\n        color: #2e3d49;\r\n        border-radius: 4px;\r\n        display: block;\r\n        box-sizing: border-box;\r\n        width: 300px;\r\n        font-size: .9375em;\r\n        padding: .75em 2.75em .75em 1em;\r\n        border: 1px solid #dbe2e8;\r\n        box-shadow: 0 0.1em 0.125em 0 rgba(46,61,73,0.08);\r\n        outline: none;\r\n        transition: box-shadow .3s ease;\r\n\r\n        &:focus {\r\n            box-shadow: 0 0.07em 0.1125em 0 rgba(46,61,73,0.06);\r\n        }\r\n    }\r\n\r\n    &__button {\r\n        padding: .75em 3em;\r\n        border: none;\r\n        border-radius: 4px;\r\n        box-shadow: 12px 15px 20px rgba(0, 0, 0, 0.1);\r\n        font-size: .9375em;\r\n        font-weight: 300;\r\n        letter-spacing: 0.165em;\r\n        text-transform: uppercase;\r\n        transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out, 0.2s border-color ease-in-out;\r\n        color: #fff;\r\n        outline: none;\r\n        background: #02b3e4;\r\n        cursor: pointer;\r\n\r\n        &:hover {\r\n            background: #148bb1;\r\n            box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.1);\r\n        }\r\n    }\r\n}\r\n\r\n.content {\r\n    max-width: 1170px;\r\n    margin: 0 auto;\r\n    padding: 50px 15px 0 15px;\r\n}\r\n\r\n.current {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n\r\n    &__detail {\r\n        display: flex;\r\n        justify-content: space-between;\r\n        width: 500px;\r\n        margin-bottom: 10px;\r\n    }\r\n\r\n    &__info {\r\n        display: flex;\r\n        justify-content: center;\r\n        width: calc(100% / 3);\r\n    }\r\n\r\n    &__num {\r\n        margin: 0 5px;\r\n    }\r\n}\r\n\r\n.days {\r\n    display: flex;\r\n    justify-content: space-between;\r\n}\r\n\r\n.day {\r\n    display: flex;\r\n    justify-content: center;\r\n    flex-wrap: wrap;\r\n    text-align: center;\r\n\r\n    &__title {\r\n        width: 100%;\r\n        align-self: center;\r\n    }\r\n\r\n    &__temp {\r\n        width: 100%;\r\n        margin: 15px 0;\r\n    }\r\n\r\n    &__summary {\r\n        width: 100%;\r\n    }\r\n}"],"sourceRoot":""}]);
 
 // exports
 
@@ -15400,11 +15401,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Render = function () {
-    function Render(data) {
+    function Render() {
         _classCallCheck(this, Render);
 
-        this.info = {
-            current: {
+        this.info = {};
+    }
+
+    _createClass(Render, [{
+        key: 'showCurrent',
+        value: function showCurrent(data) {
+            var current = {
                 humidity: data.weather.rh,
                 city: data.coordinates.city,
                 pressure: data.weather.pres,
@@ -15412,14 +15418,8 @@ var Render = function () {
                 temp: data.weather.temp,
                 wind: data.weather.wind_spd,
                 icon: data.weather.weather.icon
-            },
-            forecast: data.forecast
-        };
-    }
-
-    _createClass(Render, [{
-        key: 'showCurrent',
-        value: function showCurrent() {
+            };
+            this.info.current = current;
             _elements2.default.current.city.innerHTML = this.info.current.city;
             _elements2.default.current.humidity.innerHTML = this.info.current.humidity;
             _elements2.default.current.pressure.innerHTML = this.info.current.pressure;
@@ -15427,6 +15427,134 @@ var Render = function () {
             _elements2.default.current.temp.innerHTML = this.info.current.temp;
             _elements2.default.current.wind.innerHTML = this.info.current.wind;
             this.showIcon(this.info.current.icon, _elements2.default.current.icon);
+        }
+    }, {
+        key: 'showForecast',
+        value: function showForecast(data) {
+            var _this = this;
+
+            this.info.forecast = [];
+            var days = data.forecast;
+            var period = document.querySelector('.days');
+            days.forEach(function (day) {
+                _this.info.forecast.push(day);
+            });
+            var list = document.importNode(_elements2.default.forecast.days, true);
+            list.innerHTML = '';
+
+            var showDay = function showDay(day) {
+                _elements2.default.forecast.date.innerHTML = _this.convertDate(day.ts);
+                _elements2.default.forecast.summary.innerHTML = day.weather.description;
+                _elements2.default.forecast.temp.innerHTML = day.temp;
+                _this.showIcon(day.weather.icon, _elements2.default.forecast.icon);
+                var container = document.importNode(_elements2.default.forecast.day, true);
+                return container;
+            };
+
+            this.info.forecast.forEach(function (day) {
+                list.appendChild(showDay(day));
+            });
+
+            period.parentNode.replaceChild(list, period);
+        }
+    }, {
+        key: 'convertDate',
+        value: function convertDate(date) {
+            var convertDow = function convertDow(dow) {
+                var result = void 0;
+                switch (dow) {
+                    case 0:
+                        result = 'Sun';
+                        break;
+
+                    case 1:
+                        result = 'Mon';
+                        break;
+
+                    case 2:
+                        result = 'Tue';
+                        break;
+
+                    case 3:
+                        result = 'Wed';
+                        break;
+
+                    case 4:
+                        result = 'Thu';
+                        break;
+
+                    case 5:
+                        result = 'Fri';
+                        break;
+
+                    case 6:
+                        result = 'Sat';
+                        break;
+                }
+                return result;
+            };
+
+            var convertMonth = function convertMonth(month) {
+                var result = void 0;
+                switch (month) {
+                    case 0:
+                        result = 'Jan';
+                        break;
+
+                    case 1:
+                        result = 'Feb';
+                        break;
+
+                    case 2:
+                        result = 'Mar';
+                        break;
+
+                    case 3:
+                        result = 'Apr';
+                        break;
+
+                    case 4:
+                        result = 'May';
+                        break;
+
+                    case 5:
+                        result = 'June';
+                        break;
+
+                    case 6:
+                        result = 'July';
+                        break;
+
+                    case 7:
+                        result = 'Aug';
+                        break;
+
+                    case 8:
+                        result = 'Sept';
+                        break;
+
+                    case 9:
+                        result = 'Oct';
+                        break;
+
+                    case 10:
+                        result = 'Nov';
+                        break;
+
+                    case 11:
+                        result = 'Dec';
+                        break;
+                }
+                return result;
+            };
+
+            var time = new Date(date * 1000);
+            var day = time.getDate();
+            var dow = convertDow(time.getDay());
+            var month = convertMonth(time.getMonth());
+            var period = dow + ' ' + day + ' ' + month;
+
+            return period;
         }
     }, {
         key: 'showIcon',
@@ -15539,7 +15667,7 @@ var Render = function () {
                     icon.classList.add('wi-night-fog');
                     break;
 
-                case '01d':
+                case 'с01d':
                     icon.classList.add('wi-day-sunny');
                     break;
 
@@ -15566,9 +15694,6 @@ var Render = function () {
                     break;
             }
         }
-    }, {
-        key: 'showForecast',
-        value: function showForecast() {}
     }]);
 
     return Render;
@@ -15621,6 +15746,7 @@ var OnInit = function () {
         value: function runStartCity(city) {
             new _app.Coordinates(city).getData().then(function (results) {
                 new _app.Weather(results).getCurrent();
+                new _app.Weather(results).getForecast();
             });
         }
     }]);
