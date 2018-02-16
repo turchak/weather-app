@@ -5,7 +5,9 @@
 }
 
 body {
-    font-family: 'Open Sand', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    background:rgba(0, 0, 0, 0) linear-gradient(to right, rgb(224, 234, 252), rgb(207, 222, 243)) repeat scroll 0% 0%;
+    color: #525c65;
 }
 
 h2 {
@@ -16,6 +18,7 @@ h2 {
 h3 {
     margin: 0;
     font-size: 16px;
+    text-transform: uppercase;
 }
 
 ul {
@@ -57,7 +60,7 @@ ul {
         padding: .75em 3em;
         border: none;
         border-radius: 4px;
-        box-shadow: 12px 15px 20px rgba(0, 0, 0, 0.1);
+        box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);
         font-size: .9375em;
         font-weight: 300;
         letter-spacing: 0.165em;
@@ -70,7 +73,7 @@ ul {
 
         &:hover {
             background: #148bb1;
-            box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.1);
+            box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1);
         }
     }
 }
@@ -84,7 +87,21 @@ ul {
 .current {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    width: 600px;
+    height: 150px;
+    margin: 0 auto;
+    padding: 20px 0;
+    border-radius: 6px;
+    box-shadow:5px 5px 25px 0px rgba(46,61,73,0.2);
+    transition: all 0.3s ease;
+    background: #fff;
+
+        &:hover {
+        box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
+        cursor: pointer;
+        }
 
     &__detail {
         display: flex;
@@ -102,6 +119,10 @@ ul {
     &__num {
         margin: 0 5px;
     }
+
+    &__condition {
+        margin-top: 10px;
+    }
 }
 
 .days {
@@ -114,10 +135,21 @@ ul {
     justify-content: center;
     flex-wrap: wrap;
     text-align: center;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow:5px 5px 25px 0px rgba(46,61,73,0.2);
+    transition: all 0.3s ease;
+    margin: 10px;
+
+        &:hover {
+            box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
+            cursor: pointer;
+        }
 
     &__title {
         width: 100%;
         align-self: center;
+        margin: 15px 0;
     }
 
     &__temp {
@@ -127,5 +159,6 @@ ul {
 
     &__summary {
         width: 100%;
+        margin: 15px 0;
     }
 }

@@ -6,7 +6,7 @@ class OnInit {
         this.city = city;
         this.runAutoComplete();
         elements.search.input.value = this.city;
-        this.runStartCity(this.city);
+        // this.runStartCity(this.city);
     }
 
     runAutoComplete() {

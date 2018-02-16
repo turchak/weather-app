@@ -260,7 +260,7 @@ class Render {
             icon.classList.add('wi-night-fog');
             break;
         
-        case 'с01d':
+        case 'c01d':
             icon.classList.add('wi-day-sunny');
             break;
         
