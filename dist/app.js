@@ -10489,6 +10489,7 @@ var Weather = function () {
                 return response.json();
             }).then(function (results) {
                 _this2.info.weather = results.data[0];
+                _this2.info.weather.units = _this2.settings.units.metric;
                 new _render2.default().showCurrent(_this2.info);
             });
         }
@@ -10502,6 +10503,7 @@ var Weather = function () {
                 return response.json();
             }).then(function (results) {
                 _this3.info.forecast = results.data;
+                _this3.info.units = _this3.settings.units.metric;
                 new _render2.default().showForecast(_this3.info);
             });
         }
@@ -15417,16 +15419,28 @@ var Render = function () {
                 summary: data.weather.weather.description,
                 temp: data.weather.temp,
                 wind: data.weather.wind_spd,
-                icon: data.weather.weather.icon
+                icon: data.weather.weather.icon,
+                units: data.weather.units
             };
             this.info.current = current;
             _elements2.default.current.city.innerHTML = this.info.current.city;
             _elements2.default.current.humidity.innerHTML = this.info.current.humidity;
             _elements2.default.current.pressure.innerHTML = this.info.current.pressure;
             _elements2.default.current.summary.innerHTML = this.info.current.summary;
-            _elements2.default.current.temp.innerHTML = this.info.current.temp;
+            _elements2.default.current.temp.innerHTML = this.info.current.temp + this.getUnits(this.info.current.units);
             _elements2.default.current.wind.innerHTML = this.info.current.wind;
             this.showIcon(this.info.current.icon, _elements2.default.current.icon);
+        }
+    }, {
+        key: 'getUnits',
+        value: function getUnits(data) {
+            var unit = void 0;
+            switch (data) {
+                case 'M':
+                    unit = '\xB0' + 'C';
+                    break;
+            }
+            return unit;
         }
     }, {
         key: 'showForecast',
@@ -15434,6 +15448,7 @@ var Render = function () {
             var _this = this;
 
             this.info.forecast = [];
+            this.info.forecast.units = data.units;
             var days = data.forecast;
             var period = document.querySelector('.days');
             days.forEach(function (day) {
@@ -15445,7 +15460,7 @@ var Render = function () {
             var showDay = function showDay(day) {
                 _elements2.default.forecast.date.innerHTML = _this.convertDate(day.ts);
                 _elements2.default.forecast.summary.innerHTML = day.weather.description;
-                _elements2.default.forecast.temp.innerHTML = day.temp;
+                _elements2.default.forecast.temp.innerHTML = day.temp + _this.getUnits(_this.info.forecast.units);
                 _this.showIcon(day.weather.icon, _elements2.default.forecast.icon);
                 var container = document.importNode(_elements2.default.forecast.day, true);
                 return container;

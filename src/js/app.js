@@ -61,6 +61,7 @@ class Weather {
                 return response.json();
             }).then(results => {
                 this.info.weather = results.data[0];
+                this.info.weather.units = this.settings.units.metric;
                 new Render().showCurrent(this.info);     
             });
     }
@@ -72,6 +73,7 @@ class Weather {
                 return response.json();
             }).then(results => {
                 this.info.forecast = results.data;
+                this.info.units = this.settings.units.metric;
                 new Render().showForecast(this.info);
             });
     }
@@ -82,7 +84,7 @@ class Weather {
 
 elements.header.addEventListener('click', ({ target }) => {
     if (target === elements.search.button) {
-        new Coordinates(elements.search.input.value).getData()
+        new Coordinates(elements.search.input.value.trim()).getData()
             .then(results => {
                 new Weather(results).getCurrent();
                 new Weather(results).getForecast();

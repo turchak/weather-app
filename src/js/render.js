@@ -13,20 +13,36 @@ class Render {
             summary:  data.weather.weather.description,
             temp:     data.weather.temp,
             wind:     data.weather.wind_spd,
-            icon:     data.weather.weather.icon
+            icon:     data.weather.weather.icon,
+            units:    data.weather.units     
         };
         this.info.current = current;
         elements.current.city.innerHTML     = this.info.current.city;
         elements.current.humidity.innerHTML = this.info.current.humidity;
         elements.current.pressure.innerHTML = this.info.current.pressure;
         elements.current.summary.innerHTML  = this.info.current.summary;
-        elements.current.temp.innerHTML     = this.info.current.temp;
+        elements.current.temp.innerHTML     = this.info.current.temp + this.getUnits(this.info.current.units);
         elements.current.wind.innerHTML     = this.info.current.wind;
         this.showIcon(this.info.current.icon, elements.current.icon);     
     }
 
+    getUnits(data) {
+        let unit = '\u00B0';
+        switch(data) {
+        case 'M':
+            unit = unit + 'С';
+            break;
+            
+        case 'I':
+            unit = unit + 'F';
+            break;
+        }
+        return unit;
+    }
+
     showForecast(data) {
         this.info.forecast = [];
+        this.info.forecast.units = data.units;
         const days = data.forecast;
         const period = document.querySelector('.days');
         days.forEach(day => {
@@ -39,7 +55,7 @@ class Render {
         const showDay = day => {
             elements.forecast.date.innerHTML    = this.convertDate(day.ts);
             elements.forecast.summary.innerHTML = day.weather.description;
-            elements.forecast.temp.innerHTML    = day.temp;
+            elements.forecast.temp.innerHTML    = day.temp + this.getUnits(this.info.forecast.units);
             this.showIcon(day.weather.icon, elements.forecast.icon);
             const container = document.importNode(elements.forecast.day, true);
             return container;
