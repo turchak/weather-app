@@ -1,29 +1,43 @@
 import elements from './elements';
 
 class Render {
-    constructor() {
-        this.info = {};
+    constructor(current, week) {
+        this.info = {
+            current: current.data[0],
+            forecast: week.data
+        };
+        this.showCurrent();
+        this.showForecast();
     }
     
-    showCurrent(data) {
-        const current = {
-            humidity: data.weather.rh,
-            city:     data.coordinates.city,
-            pressure: data.weather.pres,
-            summary:  data.weather.weather.description,
-            temp:     data.weather.temp,
-            wind:     data.weather.wind_spd,
-            icon:     data.weather.weather.icon,
-            units:    data.weather.units     
-        };
-        this.info.current = current;
-        elements.current.city.innerHTML     = this.info.current.city;
-        elements.current.humidity.innerHTML = this.info.current.humidity;
-        elements.current.pressure.innerHTML = this.info.current.pressure;
-        elements.current.summary.innerHTML  = this.info.current.summary;
-        elements.current.temp.innerHTML     = this.info.current.temp + this.getUnits(this.info.current.units);
-        elements.current.wind.innerHTML     = this.info.current.wind;
-        this.showIcon(this.info.current.icon, elements.current.icon);     
+    showCurrent() {
+        const icon = this.showIcon(this.info.current.weather.icon);
+        const currentHtml = `
+        <div class="current__detail">
+        <div class="current__info current__info--wind">
+            <span class="current__label current__label--wind">Wind:</span>
+            <span class="current__num current__num--wind">${this.info.current.wind_spd}</span>
+            <span class="current__unit current__unit--wind">m/s</span>
+        </div>
+        <div class="current__info current__info--humidity">
+            <span class="current__label current__label--humidity">Humidity:</span>
+            <span class="current__num current__num--humidity">${this.info.current.rh}</span>
+            <span class="current__unit current__unit--humidity">%</span>
+        </div>
+        <div class="current__info current__info--pressure">
+            <span class="current__label current__label--pressure">Pressure:</span>
+            <span class="current__num current__num--pressure">${this.info.current.pres}</span>
+            <span class="current__unit current__unit--pressure">hPa</span>
+        </div>
+    </div>
+    <h2 class="city">${this.info.current.city_name}</h2>
+    <div class="current__condition">
+        ${icon}   
+        <span class="current__condition-temp">${this.info.current.temp}</span>
+        <span class="current__condition-summary">${this.info.current.weather.description}</span>
+    </div>
+        `;
+        elements.current.host.innerHTML = currentHtml;
     }
 
     getUnits(data) {
@@ -40,14 +54,9 @@ class Render {
         return unit;
     }
 
-    showForecast(data) {
-        this.info.forecast = [];
-        this.info.forecast.units = data.units;
-        const days = data.forecast;
+    showForecast() {
+        const days = this.info.forecast;
         const period = document.querySelector('.days');
-        days.forEach(day => {
-            this.info.forecast.push(day);
-        });
         const list = document.importNode(elements.forecast.days, true);
         list.innerHTML = '';
 
@@ -55,13 +64,13 @@ class Render {
         const showDay = day => {
             elements.forecast.date.innerHTML    = this.convertDate(day.ts);
             elements.forecast.summary.innerHTML = day.weather.description;
-            elements.forecast.temp.innerHTML    = day.temp + this.getUnits(this.info.forecast.units);
-            this.showIcon(day.weather.icon, elements.forecast.icon);
+            elements.forecast.temp.innerHTML    = day.temp;
+            this.showIcon(day.weather.icon);
             const container = document.importNode(elements.forecast.day, true);
             return container;
         };
         
-        this.info.forecast.forEach((day) => {
+        days.forEach( day => {
             list.appendChild(showDay(day));
         });
 
@@ -167,41 +176,45 @@ class Render {
         return period;
     }
 
-    showIcon(dataIcon, icon) {
-        icon.className= 'icon wi';
+    showIcon(dataIcon) {
+        let icon;
+        function getIcon(x) {
+            return `<i class="icon wi ${x}"></i>`;
+        }
+
         switch (dataIcon) {
         case 't01d':
         case 't02d':
         case 't03d':
-            icon.classList.add('wi-day-thunderstorm');
+            icon = getIcon('wi-day-thunderstorm');
             break;
         
         case 't01n':
         case 't02n':
         case 't03n':
-            icon.classList.add('wi-night-alt-thunderstorm');
+            icon = getIcon('wi-night-alt-thunderstorm');
             break;
 
         case 't04d':
         case 't05d':
-            icon.classList.add('wi-day-lightning');
+            icon = getIcon('wi-day-lightning');
             break;
 
         case 't04n':
         case 't05n':
-            icon.classList.add('wi-night-lightning');
+            icon = getIcon('wi-night-lightning');
             break;
 
         case 'd01d':
         case 'd02d':
         case 'd03d':
-            icon.classList.add('wi-day-sleet');
+            icon = getIcon('wi-day-sleet');
             break;  
             
         case 'd01n':
         case 'd02n':
         case 'd03n':
-            icon.classList.add('wi-night-alt-sleet');
+            icon = getIcon('wi-night-alt-sleet');
             break;
 
         case 'r01d':
@@ -214,48 +227,48 @@ class Render {
         case 'r06d':
         case 'u00d':
         case 'u00n':
-            icon.classList.add('wi-rain');
+            icon = getIcon('wi-rain');
             break;
         
         case 'r03d':
         case 'r03n':
-            icon.classList.add('wi-day-rain-wind');
+            icon = getIcon('wi-day-rain-wind');
             break;
 
         case 'r05d':
-            icon.classList.add('wi-day-showers');
+            icon = getIcon('wi-day-showers');
             break;
 
         case 'r05n':
         case 'r06n':
-            icon.classList.add('wi-night-alt-showers');
+            icon = getIcon('wi-night-alt-showers');
             break;
 
         case 's01d':
         case 's04d':
-            icon.classList.add('wi-day-snow');
+            icon = getIcon('wi-day-snow');
             break;
 
         case 's01n':
         case 's04n':
-            icon.classList.add('wi-night-alt-snow');
+            icon = getIcon('wi-night-alt-snow');
             break;
 
         case 's02d':
         case 's02n':
         case 's03d':
         case 's03n':
-            icon.classList.add('wi-snow-wind');
+            icon = getIcon('wi-snow-wind');
             break;
 
         case 's05d':
         case 's05n':
-            icon.classList.add('wi-cloudy-gusts');
+            icon = getIcon('wi-cloudy-gusts');
             break;
         
         case 's06d':
         case 's06n':
-            icon.classList.add('wi-snow');
+            icon = getIcon('wi-snow');
             break;
         
         case 'a01d':
@@ -264,7 +277,7 @@ class Render {
         case 'a04d':
         case 'a05d':
         case 'a06d':
-            icon.classList.add('wi-day-fog');
+            icon = getIcon('wi-day-fog');
             break;
         
         case 'a01n':
@@ -273,35 +286,37 @@ class Render {
         case 'a04n':
         case 'a05n':
         case 'a06n':
-            icon.classList.add('wi-night-fog');
+            icon = getIcon('wi-night-fog');
             break;
         
         case 'c01d':
-            icon.classList.add('wi-day-sunny');
+            icon = getIcon('wi-day-sunny');
             break;
         
         case 'c01n':
-            icon.classList.add('wi-night-clear');
+            icon = getIcon('wi-night-clear');
             break;
 
         case 'c02d':
         case 'c03d':
-            icon.classList.add('wi-day-cloudy');
+            icon = getIcon('wi-day-cloudy');
             break;
 
         case 'c02n':
         case 'c03n':
-            icon.classList.add('wi-night-alt-cloudy');
+            icon = getIcon('wi-night-alt-cloudy');
             break;
 
         case 'c04d':
-            icon.classList.add('wi-day-cloudy-high');
+            icon = getIcon('wi-day-cloudy-high');
             break;
 
         case 'c04n':
-            icon.classList.add('wi-night-alt-cloudy-high');
+            icon = getIcon('wi-night-alt-cloudy-high');
             break; 
         }
+
+        return icon;
     }
 }
 

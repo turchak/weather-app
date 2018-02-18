@@ -6,6 +6,7 @@ const elements = {
         input:  document.querySelector('.search__input'),
     },
     current: {
+        host:     document.querySelector('.current'),
         city:     document.querySelector('.city'),
         icon:     document.querySelector('.icon'),
         humidity: document.querySelector('.current__num--humidity'),

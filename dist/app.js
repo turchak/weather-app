@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 42);
+/******/ 	return __webpack_require__(__webpack_require__.s = 79);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -8509,6 +8509,7 @@ var elements = {
         input: document.querySelector('.search__input')
     },
     current: {
+        host: document.querySelector('.current'),
         city: document.querySelector('.city'),
         icon: document.querySelector('.icon'),
         humidity: document.querySelector('.current__num--humidity'),
@@ -10403,23 +10404,7 @@ exports.Weather = exports.Coordinates = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(79);
-
-var _elements = __webpack_require__(30);
-
-var _elements2 = _interopRequireDefault(_elements);
-
-var _render = __webpack_require__(84);
-
-var _render2 = _interopRequireDefault(_render);
-
-var _init = __webpack_require__(85);
-
-var _init2 = _interopRequireDefault(_init);
-
 var _maps = __webpack_require__(86);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -10484,13 +10469,11 @@ var Weather = function () {
         value: function getCurrent() {
             var _this2 = this;
 
-            var url = this.settings.url.weather + '?lat=' + this.info.coordinates.lat + '&lon=' + this.info.coordinates.lng + '&key=' + this.settings.key + '&units=' + this.settings.units.metric;
-            fetch(url).then(function (response) {
-                return response.json();
-            }).then(function (results) {
-                _this2.info.weather = results.data[0];
-                _this2.info.weather.units = _this2.settings.units.metric;
-                new _render2.default().showCurrent(_this2.info);
+            return new Promise(function (resolve) {
+                var url = _this2.settings.url.weather + '?lat=' + _this2.info.coordinates.lat + '&lon=' + _this2.info.coordinates.lng + '&key=' + _this2.settings.key + '&units=' + _this2.settings.units.metric;
+                fetch(url).then(function (response) {
+                    return resolve(response.json());
+                });
             });
         }
     }, {
@@ -10498,36 +10481,25 @@ var Weather = function () {
         value: function getForecast() {
             var _this3 = this;
 
-            var url = this.settings.url.forecast + '?lat=' + this.info.coordinates.lat + '&lon=' + this.info.coordinates.lng + '&key=' + this.settings.key + '&units=' + this.settings.units.metric + '&days=' + this.settings.days;
-            fetch(url).then(function (response) {
-                return response.json();
-            }).then(function (results) {
-                _this3.info.forecast = results.data;
-                _this3.info.units = _this3.settings.units.metric;
-                new _render2.default().showForecast(_this3.info);
+            return new Promise(function (resolve) {
+                var url = _this3.settings.url.forecast + '?lat=' + _this3.info.coordinates.lat + '&lon=' + _this3.info.coordinates.lng + '&key=' + _this3.settings.key + '&units=' + _this3.settings.units.metric + '&days=' + _this3.settings.days;
+                fetch(url).then(function (response) {
+                    return resolve(response.json());
+                });
             });
+        }
+    }, {
+        key: 'getAll',
+        value: function getAll() {
+            return Promise.all([this.getCurrent(), this.getForecast()]);
         }
     }]);
 
     return Weather;
 }();
 
-_elements2.default.header.addEventListener('click', function (_ref) {
-    var target = _ref.target;
-
-    if (target === _elements2.default.search.button) {
-        new Coordinates(_elements2.default.search.input.value).getData().then(function (results) {
-            new Weather(results).getCurrent();
-            new Weather(results).getForecast();
-        });
-    }
-});
-
 exports.Coordinates = Coordinates;
 exports.Weather = Weather;
-
-
-new _init2.default('London, UK');
 
 /***/ }),
 /* 43 */
@@ -14762,8 +14734,53 @@ module.exports = withPublic;
 /* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 
-var content = __webpack_require__(80);
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+__webpack_require__(80);
+
+var _elements = __webpack_require__(30);
+
+var _elements2 = _interopRequireDefault(_elements);
+
+var _init = __webpack_require__(85);
+
+var _init2 = _interopRequireDefault(_init);
+
+var _api = __webpack_require__(42);
+
+var _render = __webpack_require__(206);
+
+var _render2 = _interopRequireDefault(_render);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_elements2.default.header.addEventListener('click', function (_ref) {
+    var target = _ref.target;
+
+    if (target === _elements2.default.search.button) {
+        new _api.Coordinates(_elements2.default.search.input.value.trim()).getData().then(function (results) {
+            new _api.Weather(results).getAll().then(function (_ref2) {
+                var _ref3 = _slicedToArray(_ref2, 2),
+                    current = _ref3[0],
+                    week = _ref3[1];
+
+                new _render2.default(current, week);
+            });
+        });
+    }
+});
+
+new _init2.default('London, UK');
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(81);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -14777,7 +14794,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(82)(content, options);
+var update = __webpack_require__(83)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -14809,10 +14826,10 @@ if(false) {
 }
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(81)(true);
+exports = module.exports = __webpack_require__(82)(true);
 // imports
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);", ""]);
 
@@ -14823,7 +14840,7 @@ exports.push([module.i, "* {\n  box-sizing: border-box; }\n\nbody {\n  font-fami
 
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports) {
 
 /*
@@ -14905,7 +14922,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -14971,7 +14988,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(83);
+var	fixUrls = __webpack_require__(84);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -15287,7 +15304,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports) {
 
 
@@ -15382,341 +15399,6 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 84 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _elements = __webpack_require__(30);
-
-var _elements2 = _interopRequireDefault(_elements);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Render = function () {
-    function Render() {
-        _classCallCheck(this, Render);
-
-        this.info = {};
-    }
-
-    _createClass(Render, [{
-        key: 'showCurrent',
-        value: function showCurrent(data) {
-            var current = {
-                humidity: data.weather.rh,
-                city: data.coordinates.city,
-                pressure: data.weather.pres,
-                summary: data.weather.weather.description,
-                temp: data.weather.temp,
-                wind: data.weather.wind_spd,
-                icon: data.weather.weather.icon,
-                units: data.weather.units
-            };
-            this.info.current = current;
-            _elements2.default.current.city.innerHTML = this.info.current.city;
-            _elements2.default.current.humidity.innerHTML = this.info.current.humidity;
-            _elements2.default.current.pressure.innerHTML = this.info.current.pressure;
-            _elements2.default.current.summary.innerHTML = this.info.current.summary;
-            _elements2.default.current.temp.innerHTML = this.info.current.temp + this.getUnits(this.info.current.units);
-            _elements2.default.current.wind.innerHTML = this.info.current.wind;
-            this.showIcon(this.info.current.icon, _elements2.default.current.icon);
-        }
-    }, {
-        key: 'getUnits',
-        value: function getUnits(data) {
-            var unit = void 0;
-            switch (data) {
-                case 'M':
-                    unit = '\xB0' + 'C';
-                    break;
-            }
-            return unit;
-        }
-    }, {
-        key: 'showForecast',
-        value: function showForecast(data) {
-            var _this = this;
-
-            this.info.forecast = [];
-            this.info.forecast.units = data.units;
-            var days = data.forecast;
-            var period = document.querySelector('.days');
-            days.forEach(function (day) {
-                _this.info.forecast.push(day);
-            });
-            var list = document.importNode(_elements2.default.forecast.days, true);
-            list.innerHTML = '';
-
-            var showDay = function showDay(day) {
-                _elements2.default.forecast.date.innerHTML = _this.convertDate(day.ts);
-                _elements2.default.forecast.summary.innerHTML = day.weather.description;
-                _elements2.default.forecast.temp.innerHTML = day.temp + _this.getUnits(_this.info.forecast.units);
-                _this.showIcon(day.weather.icon, _elements2.default.forecast.icon);
-                var container = document.importNode(_elements2.default.forecast.day, true);
-                return container;
-            };
-
-            this.info.forecast.forEach(function (day) {
-                list.appendChild(showDay(day));
-            });
-
-            period.parentNode.replaceChild(list, period);
-        }
-    }, {
-        key: 'convertDate',
-        value: function convertDate(date) {
-            var convertDow = function convertDow(dow) {
-                var result = void 0;
-                switch (dow) {
-                    case 0:
-                        result = 'Sun';
-                        break;
-
-                    case 1:
-                        result = 'Mon';
-                        break;
-
-                    case 2:
-                        result = 'Tue';
-                        break;
-
-                    case 3:
-                        result = 'Wed';
-                        break;
-
-                    case 4:
-                        result = 'Thu';
-                        break;
-
-                    case 5:
-                        result = 'Fri';
-                        break;
-
-                    case 6:
-                        result = 'Sat';
-                        break;
-                }
-                return result;
-            };
-
-            var convertMonth = function convertMonth(month) {
-                var result = void 0;
-                switch (month) {
-                    case 0:
-                        result = 'Jan';
-                        break;
-
-                    case 1:
-                        result = 'Feb';
-                        break;
-
-                    case 2:
-                        result = 'Mar';
-                        break;
-
-                    case 3:
-                        result = 'Apr';
-                        break;
-
-                    case 4:
-                        result = 'May';
-                        break;
-
-                    case 5:
-                        result = 'June';
-                        break;
-
-                    case 6:
-                        result = 'July';
-                        break;
-
-                    case 7:
-                        result = 'Aug';
-                        break;
-
-                    case 8:
-                        result = 'Sept';
-                        break;
-
-                    case 9:
-                        result = 'Oct';
-                        break;
-
-                    case 10:
-                        result = 'Nov';
-                        break;
-
-                    case 11:
-                        result = 'Dec';
-                        break;
-                }
-                return result;
-            };
-
-            var time = new Date(date * 1000);
-            var day = time.getDate();
-            var dow = convertDow(time.getDay());
-            var month = convertMonth(time.getMonth());
-            var period = dow + ' ' + day + ' ' + month;
-
-            return period;
-        }
-    }, {
-        key: 'showIcon',
-        value: function showIcon(dataIcon, icon) {
-            icon.className = 'icon wi';
-            switch (dataIcon) {
-                case 't01d':
-                case 't02d':
-                case 't03d':
-                    icon.classList.add('wi-day-thunderstorm');
-                    break;
-
-                case 't01n':
-                case 't02n':
-                case 't03n':
-                    icon.classList.add('wi-night-alt-thunderstorm');
-                    break;
-
-                case 't04d':
-                case 't05d':
-                    icon.classList.add('wi-day-lightning');
-                    break;
-
-                case 't04n':
-                case 't05n':
-                    icon.classList.add('wi-night-lightning');
-                    break;
-
-                case 'd01d':
-                case 'd02d':
-                case 'd03d':
-                    icon.classList.add('wi-day-sleet');
-                    break;
-
-                case 'd01n':
-                case 'd02n':
-                case 'd03n':
-                    icon.classList.add('wi-night-alt-sleet');
-                    break;
-
-                case 'r01d':
-                case 'r02d':
-                case 'r01n':
-                case 'r02n':
-                case 'f01d':
-                case 'f01n':
-                case 'r04d':
-                case 'r06d':
-                case 'u00d':
-                case 'u00n':
-                    icon.classList.add('wi-rain');
-                    break;
-
-                case 'r03d':
-                case 'r03n':
-                    icon.classList.add('wi-day-rain-wind');
-                    break;
-
-                case 'r05d':
-                    icon.classList.add('wi-day-showers');
-                    break;
-
-                case 'r05n':
-                case 'r06n':
-                    icon.classList.add('wi-night-alt-showers');
-                    break;
-
-                case 's01d':
-                case 's04d':
-                    icon.classList.add('wi-day-snow');
-                    break;
-
-                case 's01n':
-                case 's04n':
-                    icon.classList.add('wi-night-alt-snow');
-                    break;
-
-                case 's02d':
-                case 's02n':
-                case 's03d':
-                case 's03n':
-                    icon.classList.add('wi-snow-wind');
-                    break;
-
-                case 's05d':
-                case 's05n':
-                    icon.classList.add('wi-cloudy-gusts');
-                    break;
-
-                case 's06d':
-                case 's06n':
-                    icon.classList.add('wi-snow');
-                    break;
-
-                case 'a01d':
-                case 'a02d':
-                case 'a03d':
-                case 'a04d':
-                case 'a05d':
-                case 'a06d':
-                    icon.classList.add('wi-day-fog');
-                    break;
-
-                case 'a01n':
-                case 'a02n':
-                case 'a03n':
-                case 'a04n':
-                case 'a05n':
-                case 'a06n':
-                    icon.classList.add('wi-night-fog');
-                    break;
-
-                case 'c01d':
-                    icon.classList.add('wi-day-sunny');
-                    break;
-
-                case 'c01n':
-                    icon.classList.add('wi-night-clear');
-                    break;
-
-                case 'c02d':
-                case 'c03d':
-                    icon.classList.add('wi-day-cloudy');
-                    break;
-
-                case 'c02n':
-                case 'c03n':
-                    icon.classList.add('wi-night-alt-cloudy');
-                    break;
-
-                case 'c04d':
-                    icon.classList.add('wi-day-cloudy-high');
-                    break;
-
-                case 'c04n':
-                    icon.classList.add('wi-night-alt-cloudy-high');
-                    break;
-            }
-        }
-    }]);
-
-    return Render;
-}();
-
-exports.default = Render;
-
-/***/ }),
 /* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15733,7 +15415,7 @@ var _elements = __webpack_require__(30);
 
 var _elements2 = _interopRequireDefault(_elements);
 
-var _app = __webpack_require__(42);
+var _api = __webpack_require__(42);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15746,7 +15428,7 @@ var OnInit = function () {
         this.city = city;
         this.runAutoComplete();
         _elements2.default.search.input.value = this.city;
-        this.runStartCity(this.city);
+        // this.runStartCity(this.city);
     }
 
     _createClass(OnInit, [{
@@ -15759,9 +15441,9 @@ var OnInit = function () {
     }, {
         key: 'runStartCity',
         value: function runStartCity(city) {
-            new _app.Coordinates(city).getData().then(function (results) {
-                new _app.Weather(results).getCurrent();
-                new _app.Weather(results).getForecast();
+            new _api.Coordinates(city).getData().then(function (results) {
+                new _api.Weather(results).getCurrent();
+                new _api.Weather(results).getForecast();
             });
         }
     }]);
@@ -29228,6 +28910,336 @@ exports.callback = function(error, response) {
 };
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+
+/***/ }),
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _elements = __webpack_require__(30);
+
+var _elements2 = _interopRequireDefault(_elements);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Render = function () {
+    function Render(current, week) {
+        _classCallCheck(this, Render);
+
+        this.info = {
+            current: current.data[0],
+            forecast: week.data
+        };
+        this.showCurrent();
+        this.showForecast();
+    }
+
+    _createClass(Render, [{
+        key: 'showCurrent',
+        value: function showCurrent() {
+            var icon = this.showIcon(this.info.current.weather.icon);
+            var currentHtml = '\n        <div class="current__detail">\n        <div class="current__info current__info--wind">\n            <span class="current__label current__label--wind">Wind:</span>\n            <span class="current__num current__num--wind">' + this.info.current.wind_spd + '</span>\n            <span class="current__unit current__unit--wind">m/s</span>\n        </div>\n        <div class="current__info current__info--humidity">\n            <span class="current__label current__label--humidity">Humidity:</span>\n            <span class="current__num current__num--humidity">' + this.info.current.rh + '</span>\n            <span class="current__unit current__unit--humidity">%</span>\n        </div>\n        <div class="current__info current__info--pressure">\n            <span class="current__label current__label--pressure">Pressure:</span>\n            <span class="current__num current__num--pressure">' + this.info.current.pres + '</span>\n            <span class="current__unit current__unit--pressure">hPa</span>\n        </div>\n    </div>\n    <h2 class="city">' + this.info.current.city_name + '</h2>\n    <div class="current__condition">\n        ' + icon + '   \n        <span class="current__condition-temp">' + this.info.current.temp + '</span>\n        <span class="current__condition-summary">' + this.info.current.weather.description + '</span>\n    </div>\n        ';
+            _elements2.default.current.host.innerHTML = currentHtml;
+        }
+    }, {
+        key: 'getUnits',
+        value: function getUnits(data) {
+            var unit = '\xB0';
+            switch (data) {
+                case 'M':
+                    unit = unit + 'С';
+                    break;
+
+                case 'I':
+                    unit = unit + 'F';
+                    break;
+            }
+            return unit;
+        }
+    }, {
+        key: 'showForecast',
+        value: function showForecast() {
+            var _this = this;
+
+            var days = this.info.forecast;
+            var period = document.querySelector('.days');
+            var list = document.importNode(_elements2.default.forecast.days, true);
+            list.innerHTML = '';
+
+            var showDay = function showDay(day) {
+                _elements2.default.forecast.date.innerHTML = _this.convertDate(day.ts);
+                _elements2.default.forecast.summary.innerHTML = day.weather.description;
+                _elements2.default.forecast.temp.innerHTML = day.temp;
+                _this.showIcon(day.weather.icon);
+                var container = document.importNode(_elements2.default.forecast.day, true);
+                return container;
+            };
+
+            days.forEach(function (day) {
+                list.appendChild(showDay(day));
+            });
+
+            period.parentNode.replaceChild(list, period);
+        }
+    }, {
+        key: 'convertDate',
+        value: function convertDate(date) {
+            var convertDow = function convertDow(dow) {
+                var result = void 0;
+                switch (dow) {
+                    case 0:
+                        result = 'Sun';
+                        break;
+
+                    case 1:
+                        result = 'Mon';
+                        break;
+
+                    case 2:
+                        result = 'Tue';
+                        break;
+
+                    case 3:
+                        result = 'Wed';
+                        break;
+
+                    case 4:
+                        result = 'Thu';
+                        break;
+
+                    case 5:
+                        result = 'Fri';
+                        break;
+
+                    case 6:
+                        result = 'Sat';
+                        break;
+                }
+                return result;
+            };
+
+            var convertMonth = function convertMonth(month) {
+                var result = void 0;
+                switch (month) {
+                    case 0:
+                        result = 'Jan';
+                        break;
+
+                    case 1:
+                        result = 'Feb';
+                        break;
+
+                    case 2:
+                        result = 'Mar';
+                        break;
+
+                    case 3:
+                        result = 'Apr';
+                        break;
+
+                    case 4:
+                        result = 'May';
+                        break;
+
+                    case 5:
+                        result = 'June';
+                        break;
+
+                    case 6:
+                        result = 'July';
+                        break;
+
+                    case 7:
+                        result = 'Aug';
+                        break;
+
+                    case 8:
+                        result = 'Sept';
+                        break;
+
+                    case 9:
+                        result = 'Oct';
+                        break;
+
+                    case 10:
+                        result = 'Nov';
+                        break;
+
+                    case 11:
+                        result = 'Dec';
+                        break;
+                }
+                return result;
+            };
+
+            var time = new Date(date * 1000);
+            var day = time.getDate();
+            var dow = convertDow(time.getDay());
+            var month = convertMonth(time.getMonth());
+            var period = dow + ' ' + day + ' ' + month;
+
+            return period;
+        }
+    }, {
+        key: 'showIcon',
+        value: function showIcon(dataIcon) {
+            var icon = void 0;
+            function getIcon(x) {
+                return '<i class="icon wi ' + x + '"></i>';
+            }
+
+            switch (dataIcon) {
+                case 't01d':
+                case 't02d':
+                case 't03d':
+                    icon = getIcon('wi-day-thunderstorm');
+                    break;
+
+                case 't01n':
+                case 't02n':
+                case 't03n':
+                    icon = getIcon('wi-night-alt-thunderstorm');
+                    break;
+
+                case 't04d':
+                case 't05d':
+                    icon = getIcon('wi-day-lightning');
+                    break;
+
+                case 't04n':
+                case 't05n':
+                    icon = getIcon('wi-night-lightning');
+                    break;
+
+                case 'd01d':
+                case 'd02d':
+                case 'd03d':
+                    icon = getIcon('wi-day-sleet');
+                    break;
+
+                case 'd01n':
+                case 'd02n':
+                case 'd03n':
+                    icon = getIcon('wi-night-alt-sleet');
+                    break;
+
+                case 'r01d':
+                case 'r02d':
+                case 'r01n':
+                case 'r02n':
+                case 'f01d':
+                case 'f01n':
+                case 'r04d':
+                case 'r06d':
+                case 'u00d':
+                case 'u00n':
+                    icon = getIcon('wi-rain');
+                    break;
+
+                case 'r03d':
+                case 'r03n':
+                    icon = getIcon('wi-day-rain-wind');
+                    break;
+
+                case 'r05d':
+                    icon = getIcon('wi-day-showers');
+                    break;
+
+                case 'r05n':
+                case 'r06n':
+                    icon = getIcon('wi-night-alt-showers');
+                    break;
+
+                case 's01d':
+                case 's04d':
+                    icon = getIcon('wi-day-snow');
+                    break;
+
+                case 's01n':
+                case 's04n':
+                    icon = getIcon('wi-night-alt-snow');
+                    break;
+
+                case 's02d':
+                case 's02n':
+                case 's03d':
+                case 's03n':
+                    icon = getIcon('wi-snow-wind');
+                    break;
+
+                case 's05d':
+                case 's05n':
+                    icon = getIcon('wi-cloudy-gusts');
+                    break;
+
+                case 's06d':
+                case 's06n':
+                    icon = getIcon('wi-snow');
+                    break;
+
+                case 'a01d':
+                case 'a02d':
+                case 'a03d':
+                case 'a04d':
+                case 'a05d':
+                case 'a06d':
+                    icon = getIcon('wi-day-fog');
+                    break;
+
+                case 'a01n':
+                case 'a02n':
+                case 'a03n':
+                case 'a04n':
+                case 'a05n':
+                case 'a06n':
+                    icon = getIcon('wi-night-fog');
+                    break;
+
+                case 'c01d':
+                    icon = getIcon('wi-day-sunny');
+                    break;
+
+                case 'c01n':
+                    icon = getIcon('wi-night-clear');
+                    break;
+
+                case 'c02d':
+                case 'c03d':
+                    icon = getIcon('wi-day-cloudy');
+                    break;
+
+                case 'c02n':
+                case 'c03n':
+                    icon = getIcon('wi-night-alt-cloudy');
+                    break;
+
+                case 'c04d':
+                    icon = getIcon('wi-day-cloudy-high');
+                    break;
+
+                case 'c04n':
+                    icon = getIcon('wi-night-alt-cloudy-high');
+                    break;
+            }
+
+            return icon;
+        }
+    }]);
+
+    return Render;
+}();
+
+exports.default = Render;
 
 /***/ })
 /******/ ]);

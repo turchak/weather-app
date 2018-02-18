@@ -1,12 +1,12 @@
 import elements from './elements';
-import { Coordinates, Weather } from './app';
+import { Coordinates, Weather } from './utils/api';
 
 class OnInit {
     constructor(city) {
         this.city = city;
         this.runAutoComplete();
         elements.search.input.value = this.city;
-        this.runStartCity(this.city);
+        // this.runStartCity(this.city);
     }
 
     runAutoComplete() {
