@@ -20,20 +20,19 @@ class App extends Component {
             city: this.state.city,
             onSubmit: this.onSearchSubmit,
         });
-        this.coordinates = city => new Coordinates(city);
+        this.coordinates = city => new Coordinates(city).getData();
         this.weather = new Current();
         this.currentForecast = new Current();
         this.weekForecast = new Forecast();
+        this.weather = response => new Weather(response).getAll();
     }
 
     onSearchSubmit(city) {
-        this.updateState({ city });
-        this.coordinates(this.state.city).getData()
-            .then(results => {
-                new Weather(results).getAll().then(([current, week]) => {
-                    this.state.current = current;
-                    this.state.week = week;
-                    this.update({ current, week })
+        this.coordinates(city)
+            .then( results => {
+                this.weather(results).then(([current, week]) => {
+                    this.updateState({ current, week })
+                    this.update();
                 });
             });
     }

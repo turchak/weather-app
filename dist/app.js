@@ -14863,11 +14863,14 @@ var App = function (_Component) {
             onSubmit: _this.onSearchSubmit
         });
         _this.coordinates = function (city) {
-            return new _api.Coordinates(city);
+            return new _api.Coordinates(city).getData();
         };
         _this.weather = new _current2.default();
         _this.currentForecast = new _current2.default();
         _this.weekForecast = new _forecast2.default();
+        _this.weather = function (response) {
+            return new _api.Weather(response).getAll();
+        };
         return _this;
     }
 
@@ -14876,16 +14879,14 @@ var App = function (_Component) {
         value: function onSearchSubmit(city) {
             var _this2 = this;
 
-            this.updateState({ city: city });
-            this.coordinates(this.state.city).getData().then(function (results) {
-                new _api.Weather(results).getAll().then(function (_ref2) {
+            this.coordinates(city).then(function (results) {
+                _this2.weather(results).then(function (_ref2) {
                     var _ref3 = _slicedToArray(_ref2, 2),
                         current = _ref3[0],
                         week = _ref3[1];
 
-                    _this2.state.current = current;
-                    _this2.state.week = week;
-                    _this2.update({ current: current, week: week });
+                    _this2.updateState({ current: current, week: week });
+                    _this2.update();
                 });
             });
         }
