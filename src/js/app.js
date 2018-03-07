@@ -3,45 +3,48 @@ import { Coordinates, Weather } from './utils/api';
 import Current from './components/current';
 import Forecast from './components/forecast';
 import Search from './components/search';
+import Component from './st/component';
 
-
-class App {
-    constructor(host) {
-        this.state = {
-            city: new URLSearchParams(window.location.search).get('city') || ''
-        };
+class App extends Component {
+    constructor({ host }) {
+        super();
         this.host = host;
-        this.locationSearch = new Search();
-        this.coordinates = city => new Coordinates(city);
-        this.onSearchSubmit = this.onSearchSubmit.bind(this);
-    }
+        this.state = {
+            city: new URLSearchParams(window.location.search).get('city') || '',
+            current: null,
+            week: null,
+        };
 
-    updateState(nextState) {
-        this.state = Object.assign({}, this.state, nextState);
-        this.render();
+        this.onSearchSubmit = this.onSearchSubmit.bind(this);
+        this.locationSearch = new Search({
+            city: this.state.city,
+            onSubmit: this.onSearchSubmit,
+        });
+        this.coordinates = city => new Coordinates(city);
+        this.weather = new Current();
     }
 
     onSearchSubmit(city) {
         this.updateState({ city });
         this.coordinates(this.state.city).getData()
             .then(results => {
-                new Weather(results).getAll().then(([current, week]) => {         
-                    this.host.appendChild(new Current(current).render());
-                    this.host.appendChild(new Forecast(week).render());
+                new Weather(results).getAll().then(([current, week]) => {
+                    this.state.current = current;
+                    this.state.week = week;
+                    this.host.appendChild(new Current().update({ current }));
+                    this.host.appendChild(new Forecast().update({ week }));
                 });
             });
     }
 
+
     render() {
         const { city } = this.state;
-        this.host.innerHTML = '';
-        this.host.appendChild(
-            this.locationSearch.update({ city, onSubmit: this.onSearchSubmit})
-        );
-        this.locationSearch.runAutoComplete();
-        return this.host;
+        return [
+            this.locationSearch.update({ city, onSubmit: this.onSearchSubmit })
+        ];
     }
 }
 
-const app = new App(document.querySelector('.content'));
-app.render();
+const app = new App({ host: document.querySelector('.content') });
+app.update();

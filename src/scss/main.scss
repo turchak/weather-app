@@ -1,163 +1,151 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
-
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
-    background:rgba(0, 0, 0, 0) linear-gradient(to right, rgb(224, 234, 252), rgb(207, 222, 243)) repeat scroll 0% 0%;
-    color: #525c65;
+  font-family: "Open Sans", sans-serif;
+  background: rgba(0, 0, 0, 0)
+    linear-gradient(to right, rgb(224, 234, 252), rgb(207, 222, 243)) repeat
+    scroll 0% 0%;
+  color: #525c65;
 }
 
 h2 {
-    margin: 0;
-    font-size: 20px;
+  margin: 0;
+  font-size: 20px;
 }
 
 h3 {
-    margin: 0;
-    font-size: 16px;
-    text-transform: uppercase;
+  margin: 0;
+  font-size: 16px;
+  text-transform: uppercase;
 }
 
 ul {
-    padding: 0;
-    list-style: none;
+  padding: 0;
+  list-style: none;
 }
 
 .header {
-    max-width: 800px;
-    margin: 0 auto;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-
 .search {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 0;
-
-    &__input {
-        color: #2e3d49;
-        border-radius: 4px;
-        display: block;
-        box-sizing: border-box;
-        width: 300px;
-        font-size: .9375em;
-        padding: .75em 2.75em .75em 1em;
-        border: 1px solid #dbe2e8;
-        box-shadow: 0 0.1em 0.125em 0 rgba(46,61,73,0.08);
-        outline: none;
-        transition: box-shadow .3s ease;
-
-        &:focus {
-            box-shadow: 0 0.07em 0.1125em 0 rgba(46,61,73,0.06);
-        }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+  &__input {
+    color: #2e3d49;
+    border-radius: 4px;
+    display: block;
+    box-sizing: border-box;
+    width: 300px;
+    font-size: 0.9375em;
+    padding: 0.75em 2.75em 0.75em 1em;
+    border: 1px solid #dbe2e8;
+    box-shadow: 0 0.1em 0.125em 0 rgba(46, 61, 73, 0.08);
+    outline: none;
+    transition: box-shadow 0.3s ease;
+    &:focus {
+      box-shadow: 0 0.07em 0.1125em 0 rgba(46, 61, 73, 0.06);
     }
-
-    &__button {
-        padding: .75em 3em;
-        border: none;
-        border-radius: 4px;
-        box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);
-        font-size: .9375em;
-        font-weight: 300;
-        letter-spacing: 0.165em;
-        text-transform: uppercase;
-        transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out, 0.2s border-color ease-in-out;
-        color: #fff;
-        outline: none;
-        background: #02b3e4;
-        cursor: pointer;
-
-        &:hover {
-            background: #148bb1;
-            box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1);
-        }
+  }
+  &__button {
+    padding: 0.75em 3em;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);
+    font-size: 0.9375em;
+    font-weight: 300;
+    letter-spacing: 0.165em;
+    text-transform: uppercase;
+    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,
+      0.2s border-color ease-in-out;
+    color: #fff;
+    outline: none;
+    background: #02b3e4;
+    cursor: pointer;
+    &:hover {
+      background: #148bb1;
+      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1);
     }
+  }
 }
 
 .content {
-    max-width: 1170px;
-    margin: 0 auto;
+  max-width: 1170px;
+  margin: 0 auto;
 }
 
 .current {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 600px;
+  height: 150px;
+  margin: 0 auto;
+  padding: 20px 0;
+  border-radius: 6px;
+  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);
+  transition: all 0.3s ease;
+  background: #fff;
+  &:hover {
+    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);
+    cursor: pointer;
+  }
+  &__detail {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    width: 600px;
-    height: 150px;
-    margin: 0 auto;
-    padding: 20px 0;
-    border-radius: 6px;
-    box-shadow:5px 5px 25px 0px rgba(46,61,73,0.2);
-    transition: all 0.3s ease;
-    background: #fff;
-
-        &:hover {
-        box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
-        cursor: pointer;
-        }
-
-    &__detail {
-        display: flex;
-        justify-content: space-between;
-        width: 500px;
-        margin-bottom: 10px;
-    }
-
-    &__info {
-        display: flex;
-        justify-content: center;
-        width: calc(100% / 3);
-    }
-
-    &__num {
-        margin: 0 5px;
-    }
-
-    &__condition {
-        margin-top: 10px;
-    }
+    width: 500px;
+    margin-bottom: 10px;
+  }
+  &__info {
+    display: flex;
+    justify-content: center;
+    width: calc(100% / 3);
+  }
+  &__num {
+    margin: 0 5px;
+  }
+  &__condition {
+    margin-top: 10px;
+  }
 }
 
 .days {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .day {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    text-align: center;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow:5px 5px 25px 0px rgba(46,61,73,0.2);
-    transition: all 0.3s ease;
-    margin: 10px;
-
-        &:hover {
-            box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
-            cursor: pointer;
-        }
-
-    &__title {
-        width: 100%;
-        align-self: center;
-        margin: 15px 0;
-    }
-
-    &__temp {
-        width: 100%;
-        margin: 15px 0;
-    }
-
-    &__summary {
-        width: 100%;
-        margin: 15px 0;
-    }
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);
+  transition: all 0.3s ease;
+  margin: 10px;
+  &:hover {
+    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);
+    cursor: pointer;
+  }
+  &__title {
+    width: 100%;
+    align-self: center;
+    margin: 15px 0;
+  }
+  &__temp {
+    width: 100%;
+    margin: 15px 0;
+  }
+  &__summary {
+    width: 100%;
+    margin: 15px 0;
+  }
 }

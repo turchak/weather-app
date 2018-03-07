@@ -8,7 +8,6 @@ class Coordinates {
             language: 'en',
             Promise: Promise
         });
-        this.getData();
     }
     getData() {
         return new Promise( resolve => {

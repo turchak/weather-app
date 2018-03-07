@@ -1,29 +1,31 @@
 import showIcon from '../utils/icon';
 import convertDate from '../utils/date';
+import Component from '../st/component';
 
-class Forecast {
-    constructor(week) {
+class Forecast extends Component{
+    constructor(props) {
+        super(props);
         this.host = document.createElement('div');
         this.host.classList.add('days');
-        this.info = week.data;
     }
 
     render() {
-        this.host.innerHTML = '';
-        const days = this.info;
+        const days = this.props.week.data;
         const day = data => {
-            return `
-            <li class="day">
-                 <h3 class="day__title">${convertDate(data.ts)}</h3>
+            const item = document.createElement('li');
+            item.classList.add('day');
+            item.innerHTML = 
+            `    <h3 class="day__title">${convertDate(data.ts)}</h3>
                  <span class="day__temp">${data.temp}</span>
                  <span class="day__icon">${showIcon(data.weather.icon)}</span>
-                 <span class="day__summary">${data.weather.description}</span>
-             </li>`;
+                 <span class="day__summary">${data.weather.description}</span>`;
+            return item;
         };
+        const host = [];
         days.forEach(el => {
-            this.host.innerHTML += day(el);
+            host.push(day(el));
         });
-        return this.host;
+        return host;
     }
 }
 
