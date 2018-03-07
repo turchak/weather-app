@@ -14852,7 +14852,7 @@ var App = function (_Component) {
 
         _this.host = host;
         _this.state = {
-            city: new URLSearchParams(window.location.search).get('city') || '',
+            city: new URLSearchParams(window.location.search).get('city') || 'Kiev',
             current: null,
             week: null
         };
@@ -14866,6 +14866,8 @@ var App = function (_Component) {
             return new _api.Coordinates(city);
         };
         _this.weather = new _current2.default();
+        _this.currentForecast = new _current2.default();
+        _this.weekForecast = new _forecast2.default();
         return _this;
     }
 
@@ -14883,17 +14885,21 @@ var App = function (_Component) {
 
                     _this2.state.current = current;
                     _this2.state.week = week;
-                    _this2.host.appendChild(new _current2.default().update({ current: current }));
-                    _this2.host.appendChild(new _forecast2.default().update({ week: week }));
+                    _this2.update({ current: current, week: week });
                 });
             });
         }
     }, {
         key: 'render',
         value: function render() {
-            var city = this.state.city;
+            var _state = this.state,
+                city = _state.city,
+                current = _state.current,
+                week = _state.week;
 
-            return [this.locationSearch.update({ city: city, onSubmit: this.onSearchSubmit })];
+            if (this.state.current && this.state.week) {
+                return [this.locationSearch.update({ city: city, onSubmit: this.onSearchSubmit }), this.currentForecast.update({ current: current }), this.weekForecast.update({ week: week })];
+            } else return this.locationSearch.update({ city: city, onSubmit: this.onSearchSubmit });
         }
     }]);
 

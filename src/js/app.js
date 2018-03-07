@@ -10,7 +10,7 @@ class App extends Component {
         super();
         this.host = host;
         this.state = {
-            city: new URLSearchParams(window.location.search).get('city') || '',
+            city: new URLSearchParams(window.location.search).get('city') || 'Kiev',
             current: null,
             week: null,
         };
@@ -22,6 +22,8 @@ class App extends Component {
         });
         this.coordinates = city => new Coordinates(city);
         this.weather = new Current();
+        this.currentForecast = new Current();
+        this.weekForecast = new Forecast();
     }
 
     onSearchSubmit(city) {
@@ -31,18 +33,23 @@ class App extends Component {
                 new Weather(results).getAll().then(([current, week]) => {
                     this.state.current = current;
                     this.state.week = week;
-                    this.host.appendChild(new Current().update({ current }));
-                    this.host.appendChild(new Forecast().update({ week }));
+                    this.update({ current, week })
                 });
             });
     }
 
 
     render() {
-        const { city } = this.state;
-        return [
-            this.locationSearch.update({ city, onSubmit: this.onSearchSubmit })
-        ];
+        const { city, current, week } = this.state;
+        if ( this.state.current && this.state.week) {
+            return [
+                this.locationSearch.update({ city, onSubmit: this.onSearchSubmit }),
+                this.currentForecast.update({ current }),
+                this.weekForecast.update({ week })
+            ];
+        } else 
+            return this.locationSearch.update({ city, onSubmit: this.onSearchSubmit });
+        
     }
 }
 
