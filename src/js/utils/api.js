@@ -71,4 +71,5 @@ class Weather {
     }
 }
 
+
 export { Coordinates, Weather };

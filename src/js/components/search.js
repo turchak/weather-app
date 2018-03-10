@@ -8,11 +8,6 @@ class Search extends Component {
         this.host = document.createElement('div');
         this.host.classList.add('search-container');
         this.host.addEventListener('submit', this.handleSubmit);
-
-        this.input = document.createElement('input');
-        this.input.type = 'text';
-        this.input.setAttribute('placeholder', 'Type location...');
-        this.input.setAttribute('required', '');
     }
 
     handleSubmit(ev) {
@@ -26,11 +21,26 @@ class Search extends Component {
         }
     }
 
+    _render() {
+        const children = this.render();
+
+        this.host.innerHTML = '';
+        if (typeof children === 'string') {
+            this.host.innerHTML = children;
+        } else if (Array.isArray(children)) {
+            this.host.append(...children);
+        } else {
+            this.host.append(children);
+        }
+
+        return this.host;
+    }
+
     render() {
         const { isValid } = this.state;
         const { city } = this.props;
         return `
-        <form class=${ isValid ? '"search"' : '"search-invalid"'}>
+        <form class=${ isValid ? '"search"' : '"search-invalid"' }>
             <input name='search' required class='search__input' value='${ city }'>
             <button class='search__button'>Start</button>
         </form>`;

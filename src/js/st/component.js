@@ -15,6 +15,8 @@ class Component {
         return this._render();
     }
 
+    
+
     _render() {
         const children = this.render();
 
@@ -26,7 +28,7 @@ class Component {
         } else {
             this.host.append(children);
         }
-      
+        
         return this.host;
     }
 

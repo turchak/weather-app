@@ -32,6 +32,60 @@ ul {
   margin: 0 auto;
 }
 
+.add-favorite {
+  position:relative;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #fff;
+  color: #fff;
+  border-radius: 999px;
+  background: transparent;
+  transition: all ease-in-out 0.3s;
+  transition-delay: 0.1s;
+  
+  &:focus {
+    outline: 0;
+  }
+  &:before {
+    content: '\f08a';
+    font-family: 'FontAwesome';
+    font-size: 18px;
+    position: absolute;
+    top: 10px;
+    left: 9px
+  }
+  &:after {
+    content:'';
+    opacity: 0;
+    font-family: 'Lato';
+    position: absolute;
+    top: 9px;
+    right: 10px;
+  }
+  
+  &:hover {
+    width: 150px;
+    transition: all ease-in-out 0.3s;
+    &:after {
+      content: "Favorite This";
+      opacity: 1;
+      transition: all ease-in-out 0.5s;
+    }
+  }
+  
+  &.favorited {
+    &:before {
+      content: '\f004';
+      color: #fff;
+    }
+    &:hover {
+      &:after {
+        content: "Favorited!";
+      }
+    }
+  }
+}
+
 .search {
   display: flex;
   justify-content: center;
