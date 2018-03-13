@@ -27,21 +27,16 @@ class App extends Component {
         this.currentForecast = new Current();
         this.weekForecast = new Forecast();
         this.favorite = new Favorite();
-        
     }
 
     onSearchSubmit(city) {
         this.coordinates(city)
             .then( results => {
                 this.weather(results).then(([current, week]) => {
-                    this.updateState({ current, week });
+                    this.updateState({ city, current, week });
                     autoComplete(document.querySelector('.search__input'));
                 });
             });
-    }
-
-    onClickFavorite() {
-        console.log('zzz')
     }
 
     init() {
@@ -49,15 +44,14 @@ class App extends Component {
         autoComplete(document.querySelector('.search__input'));
     }
 
-
     render() {
         const { city, current, week } = this.state;
         if (this.state.current && this.state.week) {
             return [
                 this.locationSearch.update({ city, onSubmit: this.onSearchSubmit }),
                 this.currentForecast.update({ current }),
-                this.favorite.update({ city, onClick: this.onClickFavorite }),
-                this.weekForecast.update({ week })
+                this.weekForecast.update({ week }),
+                this.favorite.update({ city, onClick: this.onSearchSubmit }),
             ];
         } else 
             return this.locationSearch.update({ city, onSubmit: this.onSearchSubmit });
