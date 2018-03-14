@@ -57,7 +57,6 @@ ul {
       background: #148bb1;
       box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1);
     }
-    //TODO: button
   }
 
   &__clear{
@@ -79,7 +78,6 @@ ul {
       background: #148bb1;
       box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1);
     }
-    //TODO: button
   }
 
   &__cities {
@@ -112,7 +110,6 @@ ul {
       color: #fff;
       outline: none;
       background: #02d1bf;
-      // white-space:nowrap;
       cursor: pointer;
     &:hover {
       background: #02ccba;
@@ -238,5 +235,42 @@ ul {
   &__summary {
     width: 100%;
     margin: 15px 0;
+  }
+}
+.units {
+  display: flex;
+  justify-content: center;
+}
+input[name='units'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: none;
+
+  &:after {
+      display: inline-block;
+      text-align: center;
+      font-size: 18px;
+      content: attr(data-units);
+      padding: 0.75em 3em;
+      margin: 10px;
+      border-radius: 4px;
+      color: rgba(255,255,255,.6);
+      box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);
+      font-weight: 300;
+      letter-spacing: 0.165em;
+      text-transform: uppercase;
+      background: #02b3e4;
+      transition: box-shadow 1s, color 1s;
+      cursor: pointer;
+  }
+  
+  &:checked {
+      &:after {
+        box-shadow: inset 6px 6px 15px 2px rgba(0, 0, 0, 0.1);
+        color: #fff;
+      }
   }
 }

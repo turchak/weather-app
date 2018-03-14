@@ -24,7 +24,8 @@ class Coordinates {
 
 
 class Weather {
-    constructor(data) {
+    constructor(data, units) {
+        this.units = units;
         this.info = {
             coordinates: {
                 city: data.address_components[0].long_name,
@@ -38,17 +39,14 @@ class Weather {
                 forecast: 'https://api.weatherbit.io/v2.0/forecast/daily'
             },
             key: '5499a420699d421297f7f99e774cfc94',
-            units: {
-                fahrenheit: 'I',
-                metric:     'M'
-            },
+            units: this.units,
             days: '5'
         };  
     }
 
     getCurrent() {
         return new Promise( resolve => {
-            const url = this.settings.url.weather + '?lat=' + this.info.coordinates.lat + '&lon=' + this.info.coordinates.lng + '&key=' + this.settings.key + '&units=' + this.settings.units.metric;
+            const url = this.settings.url.weather + '?lat=' + this.info.coordinates.lat + '&lon=' + this.info.coordinates.lng + '&key=' + this.settings.key + '&units=' + this.settings.units;
             fetch(url)
                 .then(response => {
                     return resolve(response.json());
@@ -58,7 +56,7 @@ class Weather {
 
     getForecast() {
         return new Promise( resolve => {
-            const url = this.settings.url.forecast + '?lat=' + this.info.coordinates.lat + '&lon=' + this.info.coordinates.lng + '&key=' + this.settings.key + '&units=' + this.settings.units.metric + '&days=' + this.settings.days;
+            const url = this.settings.url.forecast + '?lat=' + this.info.coordinates.lat + '&lon=' + this.info.coordinates.lng + '&key=' + this.settings.key + '&units=' + this.settings.units + '&days=' + this.settings.days;
             fetch(url)
                 .then(response => {
                     return resolve(response.json());

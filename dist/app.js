@@ -6336,7 +6336,7 @@ var objectKeys = Object.keys || function (obj) {
 module.exports = Duplex;
 
 /*<replacement>*/
-var util = __webpack_require__(16);
+var util = __webpack_require__(17);
 util.inherits = __webpack_require__(0);
 /*</replacement>*/
 
@@ -6553,6 +6553,72 @@ module.exports = Hash
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Component = function () {
+    function Component(props) {
+        _classCallCheck(this, Component);
+
+        this.props = props || {};
+        this.state = {};
+        this.host = null;
+    }
+
+    _createClass(Component, [{
+        key: 'updateState',
+        value: function updateState(nextState) {
+            this.state = Object.assign({}, this.state, nextState);
+            return this._render();
+        }
+    }, {
+        key: 'update',
+        value: function update(nextProps) {
+            this.props = nextProps;
+            return this._render();
+        }
+    }, {
+        key: '_render',
+        value: function _render() {
+            var children = this.render();
+
+            this.host.innerHTML = '';
+            if (typeof children === 'string') {
+                this.host.innerHTML = children;
+            } else if (Array.isArray(children)) {
+                var _host;
+
+                (_host = this.host).append.apply(_host, _toConsumableArray(children));
+            } else {
+                this.host.append(children);
+            }
+
+            return this.host;
+        }
+    }, {
+        key: 'render',
+        value: function render() {}
+    }]);
+
+    return Component;
+}();
+
+exports.default = Component;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
 exports = module.exports = __webpack_require__(46);
 exports.Stream = exports;
 exports.Readable = exports;
@@ -6563,7 +6629,7 @@ exports.PassThrough = __webpack_require__(104);
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
@@ -6677,7 +6743,7 @@ function objectToString(o) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6737,7 +6803,7 @@ module.exports = function createHash (alg) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {module.exports = function xor (a, b) {
@@ -6754,7 +6820,7 @@ module.exports = function createHash (alg) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6853,7 +6919,7 @@ BlockHash.prototype._pad = function pad() {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var asn1 = exports;
@@ -6861,14 +6927,14 @@ var asn1 = exports;
 asn1.bignum = __webpack_require__(3);
 
 asn1.define = __webpack_require__(175).define;
-asn1.base = __webpack_require__(21);
+asn1.base = __webpack_require__(22);
 asn1.constants = __webpack_require__(71);
 asn1.decoders = __webpack_require__(181);
 asn1.encoders = __webpack_require__(183);
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = exports;
@@ -6878,72 +6944,6 @@ base.DecoderBuffer = __webpack_require__(70).DecoderBuffer;
 base.EncoderBuffer = __webpack_require__(70).EncoderBuffer;
 base.Node = __webpack_require__(179);
 
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Component = function () {
-    function Component(props) {
-        _classCallCheck(this, Component);
-
-        this.props = props || {};
-        this.state = {};
-        this.host = null;
-    }
-
-    _createClass(Component, [{
-        key: 'updateState',
-        value: function updateState(nextState) {
-            this.state = Object.assign({}, this.state, nextState);
-            return this._render();
-        }
-    }, {
-        key: 'update',
-        value: function update(nextProps) {
-            this.props = nextProps;
-            return this._render();
-        }
-    }, {
-        key: '_render',
-        value: function _render() {
-            var children = this.render();
-
-            this.host.innerHTML = '';
-            if (typeof children === 'string') {
-                this.host.innerHTML = children;
-            } else if (Array.isArray(children)) {
-                var _host;
-
-                (_host = this.host).append.apply(_host, _toConsumableArray(children));
-            } else {
-                this.host.append(children);
-            }
-
-            return this.host;
-        }
-    }, {
-        key: 'render',
-        value: function render() {}
-    }]);
-
-    return Component;
-}();
-
-exports.default = Component;
 
 /***/ }),
 /* 23 */
@@ -8042,7 +8042,7 @@ var EE = __webpack_require__(31).EventEmitter;
 var inherits = __webpack_require__(0);
 
 inherits(Stream, EE);
-Stream.Readable = __webpack_require__(15);
+Stream.Readable = __webpack_require__(16);
 Stream.Writable = __webpack_require__(116);
 Stream.Duplex = __webpack_require__(117);
 Stream.Transform = __webpack_require__(118);
@@ -8936,7 +8936,7 @@ var Duplex;
 Writable.WritableState = WritableState;
 
 /*<replacement>*/
-var util = __webpack_require__(16);
+var util = __webpack_require__(17);
 util.inherits = __webpack_require__(0);
 /*</replacement>*/
 
@@ -10403,7 +10403,7 @@ function getr(priv) {
 var hash = exports;
 
 hash.utils = __webpack_require__(8);
-hash.common = __webpack_require__(19);
+hash.common = __webpack_require__(20);
 hash.sha = __webpack_require__(160);
 hash.ripemd = __webpack_require__(164);
 hash.hmac = __webpack_require__(165);
@@ -10542,7 +10542,7 @@ xhr = null // Help gc
 
 /* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(44)
 var inherits = __webpack_require__(0)
-var stream = __webpack_require__(15)
+var stream = __webpack_require__(16)
 
 var rStates = exports.readyStates = {
 	UNSENT: 0,
@@ -10831,7 +10831,7 @@ function _isUint8Array(obj) {
 /*</replacement>*/
 
 /*<replacement>*/
-var util = __webpack_require__(16);
+var util = __webpack_require__(17);
 util.inherits = __webpack_require__(0);
 /*</replacement>*/
 
@@ -11934,7 +11934,7 @@ module.exports = Transform;
 var Duplex = __webpack_require__(12);
 
 /*<replacement>*/
-var util = __webpack_require__(16);
+var util = __webpack_require__(17);
 util.inherits = __webpack_require__(0);
 /*</replacement>*/
 
@@ -12723,7 +12723,7 @@ module.exports = pbkdf2
 /* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var xor = __webpack_require__(18)
+var xor = __webpack_require__(19)
 var Buffer = __webpack_require__(2).Buffer
 var incr32 = __webpack_require__(59)
 
@@ -12791,7 +12791,7 @@ var Buffer = __webpack_require__(2).Buffer
 var Transform = __webpack_require__(10)
 var inherits = __webpack_require__(0)
 var GHASH = __webpack_require__(137)
-var xor = __webpack_require__(18)
+var xor = __webpack_require__(19)
 var incr32 = __webpack_require__(59)
 
 function xorTest (a, b) {
@@ -13370,7 +13370,7 @@ exports.g1_256 = g1_256;
 
 
 var utils = __webpack_require__(8);
-var common = __webpack_require__(19);
+var common = __webpack_require__(20);
 var shaCommon = __webpack_require__(67);
 var assert = __webpack_require__(7);
 
@@ -13482,7 +13482,7 @@ SHA256.prototype._digest = function digest(enc) {
 
 
 var utils = __webpack_require__(8);
-var common = __webpack_require__(19);
+var common = __webpack_require__(20);
 var assert = __webpack_require__(7);
 
 var rotr64_hi = utils.rotr64_hi;
@@ -13816,7 +13816,7 @@ function g1_512_lo(xh, xl) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(0);
-var Reporter = __webpack_require__(21).Reporter;
+var Reporter = __webpack_require__(22).Reporter;
 var Buffer = __webpack_require__(1).Buffer;
 
 function DecoderBuffer(base, options) {
@@ -13964,7 +13964,7 @@ constants.der = __webpack_require__(180);
 
 var inherits = __webpack_require__(0);
 
-var asn1 = __webpack_require__(20);
+var asn1 = __webpack_require__(21);
 var base = asn1.base;
 var bignum = asn1.bignum;
 
@@ -14295,7 +14295,7 @@ function derDecodeLen(buf, primitive, fail) {
 var inherits = __webpack_require__(0);
 var Buffer = __webpack_require__(1).Buffer;
 
-var asn1 = __webpack_require__(20);
+var asn1 = __webpack_require__(21);
 var base = asn1.base;
 
 // Import DER constants
@@ -14599,7 +14599,7 @@ module.exports = {"1.3.132.0.10":"secp256k1","1.3.132.0.33":"p224","1.2.840.1004
 /* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(17);
+/* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(18);
 module.exports = function (seed, len) {
   var t = new Buffer('');
   var  i = 0, c;
@@ -14828,7 +14828,7 @@ var _search = __webpack_require__(209);
 
 var _search2 = _interopRequireDefault(_search);
 
-var _component = __webpack_require__(22);
+var _component = __webpack_require__(15);
 
 var _component2 = _interopRequireDefault(_component);
 
@@ -14839,6 +14839,10 @@ var _autocomplete2 = _interopRequireDefault(_autocomplete);
 var _favorite = __webpack_require__(211);
 
 var _favorite2 = _interopRequireDefault(_favorite);
+
+var _units = __webpack_require__(212);
+
+var _units2 = _interopRequireDefault(_units);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14862,10 +14866,12 @@ var App = function (_Component) {
         _this.state = {
             city: new URLSearchParams(window.location.search).get('city') || '',
             current: null,
-            week: null
+            week: null,
+            units: localStorage.units || 'M'
         };
 
         _this.onSearchSubmit = _this.onSearchSubmit.bind(_this);
+        _this.changeUnits = _this.changeUnits.bind(_this);
         _this.locationSearch = new _search2.default({
             city: _this.state.city,
             onSubmit: _this.onSearchSubmit
@@ -14873,12 +14879,13 @@ var App = function (_Component) {
         _this.coordinates = function (city) {
             return new _api.Coordinates(city).getData();
         };
-        _this.weather = function (response) {
-            return new _api.Weather(response).getAll();
+        _this.weather = function (response, units) {
+            return new _api.Weather(response, units).getAll();
         };
         _this.currentForecast = new _current2.default();
         _this.weekForecast = new _forecast2.default();
         _this.favorite = new _favorite2.default();
+        _this.units = new _units2.default();
         return _this;
     }
 
@@ -14887,8 +14894,9 @@ var App = function (_Component) {
         value: function onSearchSubmit(city) {
             var _this2 = this;
 
+            var units = this.state.units;
             this.coordinates(city).then(function (results) {
-                _this2.weather(results).then(function (_ref2) {
+                _this2.weather(results, units).then(function (_ref2) {
                     var _ref3 = _slicedToArray(_ref2, 2),
                         current = _ref3[0],
                         week = _ref3[1];
@@ -14905,6 +14913,12 @@ var App = function (_Component) {
             (0, _autocomplete2.default)(document.querySelector('.search__input'));
         }
     }, {
+        key: 'changeUnits',
+        value: function changeUnits(units) {
+            this.state.units = units;
+            this.onSearchSubmit(this.state.city);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _state = this.state,
@@ -14913,7 +14927,7 @@ var App = function (_Component) {
                 week = _state.week;
 
             if (this.state.current && this.state.week) {
-                return [this.locationSearch.update({ city: city, onSubmit: this.onSearchSubmit }), this.currentForecast.update({ current: current }), this.weekForecast.update({ week: week }), this.favorite.update({ city: city, onClick: this.onSearchSubmit })];
+                return [this.locationSearch.update({ city: city, onSubmit: this.onSearchSubmit }), this.units.update({ onSwitch: this.changeUnits }), this.currentForecast.update({ current: current }), this.weekForecast.update({ week: week }), this.favorite.update({ city: city, onClick: this.onSearchSubmit })];
             } else return this.locationSearch.update({ city: city, onSubmit: this.onSearchSubmit });
         }
     }]);
@@ -14983,7 +14997,7 @@ exports = module.exports = __webpack_require__(82)(true);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);", ""]);
 
 // module
-exports.push([module.i, "* {\n  box-sizing: border-box; }\n\nbody {\n  font-family: \"Open Sans\", sans-serif;\n  background: transparent linear-gradient(to right, #e0eafc, #cfdef3) repeat scroll 0% 0%;\n  color: #525c65; }\n\nh2 {\n  margin: 0;\n  font-size: 20px; }\n\nh3 {\n  margin: 0;\n  font-size: 16px;\n  text-transform: uppercase; }\n\nul {\n  padding: 0;\n  list-style: none; }\n\n.header {\n  max-width: 800px;\n  margin: 0 auto; }\n\n.favorite {\n  display: flex;\n  flex-direction: column;\n  justify-content: center; }\n  .favorite__add {\n    padding: 0.75em 3em;\n    margin-bottom: 10px;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-size: 0.9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .favorite__add:hover {\n      background: #148bb1;\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n  .favorite__clear {\n    padding: 0.75em 3em;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-size: 0.9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .favorite__clear:hover {\n      background: #148bb1;\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n  .favorite__cities {\n    display: flex;\n    flex-wrap: wrap; }\n  .favorite__city {\n    margin-bottom: 10px;\n    width: calc(25% - 6.75px); }\n    .favorite__city:not(:nth-child(4n+1)) {\n      margin-left: 9px; }\n    .favorite__city-button {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      width: 100%;\n      padding: 0.75em 0;\n      border: none;\n      border-radius: 4px;\n      box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n      font-size: 0.9375em;\n      font-weight: 300;\n      letter-spacing: 0.165em;\n      text-transform: uppercase;\n      transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n      color: #fff;\n      outline: none;\n      background: #02d1bf;\n      cursor: pointer; }\n      .favorite__city-button:hover {\n        background: #02ccba;\n        box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n\n.search {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 30px 0; }\n  .search__input {\n    color: #2e3d49;\n    border-radius: 4px;\n    display: block;\n    box-sizing: border-box;\n    width: 300px;\n    font-size: 0.9375em;\n    padding: 0.75em 2.75em 0.75em 1em;\n    border: 1px solid #dbe2e8;\n    box-shadow: 0 0.1em 0.125em 0 rgba(46, 61, 73, 0.08);\n    outline: none;\n    transition: box-shadow 0.3s ease; }\n    .search__input:focus {\n      box-shadow: 0 0.07em 0.1125em 0 rgba(46, 61, 73, 0.06); }\n  .search__button {\n    padding: 0.75em 3em;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-size: 0.9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .search__button:hover {\n      background: #148bb1;\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n\n.content {\n  max-width: 1170px;\n  margin: 0 auto; }\n\n.current {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  width: 600px;\n  height: 150px;\n  margin: 0 auto;\n  padding: 20px 0;\n  border-radius: 6px;\n  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);\n  transition: all 0.3s ease;\n  background: #fff; }\n  .current:hover {\n    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);\n    cursor: pointer; }\n  .current__detail {\n    display: flex;\n    justify-content: space-between;\n    width: 500px;\n    margin-bottom: 10px; }\n  .current__info {\n    display: flex;\n    justify-content: center;\n    width: calc(100% / 3); }\n  .current__num {\n    margin: 0 5px; }\n  .current__condition {\n    margin-top: 10px; }\n\n.days {\n  display: flex;\n  justify-content: space-between; }\n\n.day {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  text-align: center;\n  background: #fff;\n  border-radius: 6px;\n  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);\n  transition: all 0.3s ease;\n  margin: 10px; }\n  .day:hover {\n    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);\n    cursor: pointer; }\n  .day__title {\n    width: 100%;\n    align-self: center;\n    margin: 15px 0; }\n  .day__temp {\n    width: 100%;\n    margin: 15px 0; }\n  .day__summary {\n    width: 100%;\n    margin: 15px 0; }\n", "", {"version":3,"sources":["C:/home/kottans/task_10/src/scss/src/scss/main.scss","C:/home/kottans/task_10/src/scss/main.scss"],"names":[],"mappings":"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","file":"main.scss","sourcesContent":["@import url(\"https://fonts.googleapis.com/css?family=Open+Sans:300,400,700\");\r\n* {\r\n  box-sizing: border-box;\r\n}\r\n\r\nbody {\r\n  font-family: \"Open Sans\", sans-serif;\r\n  background: rgba(0, 0, 0, 0)\r\n    linear-gradient(to right, rgb(224, 234, 252), rgb(207, 222, 243)) repeat\r\n    scroll 0% 0%;\r\n  color: #525c65;\r\n}\r\n\r\nh2 {\r\n  margin: 0;\r\n  font-size: 20px;\r\n}\r\n\r\nh3 {\r\n  margin: 0;\r\n  font-size: 16px;\r\n  text-transform: uppercase;\r\n}\r\n\r\nul {\r\n  padding: 0;\r\n  list-style: none;\r\n}\r\n\r\n.header {\r\n  max-width: 800px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.favorite {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n\r\n  &__add {\r\n    padding: 0.75em 3em;\r\n    margin-bottom: 10px;\r\n    border: none;\r\n    border-radius: 4px;\r\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\r\n    font-size: 0.9375em;\r\n    font-weight: 300;\r\n    letter-spacing: 0.165em;\r\n    text-transform: uppercase;\r\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r\n      0.2s border-color ease-in-out;\r\n    color: #fff;\r\n    outline: none;\r\n    background: #02b3e4;\r\n    cursor: pointer;\r\n    &:hover {\r\n      background: #148bb1;\r\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1);\r\n    }\r\n    //TODO: button\r\n  }\r\n\r\n  &__clear{\r\n    padding: 0.75em 3em;\r\n    border: none;\r\n    border-radius: 4px;\r\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\r\n    font-size: 0.9375em;\r\n    font-weight: 300;\r\n    letter-spacing: 0.165em;\r\n    text-transform: uppercase;\r\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r\n      0.2s border-color ease-in-out;\r\n    color: #fff;\r\n    outline: none;\r\n    background: #02b3e4;\r\n    cursor: pointer;\r\n    &:hover {\r\n      background: #148bb1;\r\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1);\r\n    }\r\n    //TODO: button\r\n  }\r\n\r\n  &__cities {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n  }\r\n\r\n  &__city {\r\n    &:not(:nth-child(4n+1)) {\r\n      margin-left: 9px;\r\n    }\r\n    margin-bottom: 10px;\r\n    width: calc(25% - 6.75px);\r\n\r\n    &-button {\r\n      display: flex;\r\n      justify-content: center;\r\n      align-items: center;\r\n      width: 100%;\r\n      padding: 0.75em 0;\r\n      border: none;\r\n      border-radius: 4px;\r\n      box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\r\n      font-size: 0.9375em;\r\n      font-weight: 300;\r\n      letter-spacing: 0.165em;\r\n      text-transform: uppercase;\r\n      transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r\n      0.2s border-color ease-in-out;\r\n      color: #fff;\r\n      outline: none;\r\n      background: #02d1bf;\r\n      // white-space:nowrap;\r\n      cursor: pointer;\r\n    &:hover {\r\n      background: #02ccba;\r\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1);\r\n    }\r\n    }\r\n    \r\n  }\r\n}\r\n\r\n.search {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  padding: 30px 0;\r\n  &__input {\r\n    color: #2e3d49;\r\n    border-radius: 4px;\r\n    display: block;\r\n    box-sizing: border-box;\r\n    width: 300px;\r\n    font-size: 0.9375em;\r\n    padding: 0.75em 2.75em 0.75em 1em;\r\n    border: 1px solid #dbe2e8;\r\n    box-shadow: 0 0.1em 0.125em 0 rgba(46, 61, 73, 0.08);\r\n    outline: none;\r\n    transition: box-shadow 0.3s ease;\r\n    &:focus {\r\n      box-shadow: 0 0.07em 0.1125em 0 rgba(46, 61, 73, 0.06);\r\n    }\r\n  }\r\n  &__button {\r\n    padding: 0.75em 3em;\r\n    border: none;\r\n    border-radius: 4px;\r\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\r\n    font-size: 0.9375em;\r\n    font-weight: 300;\r\n    letter-spacing: 0.165em;\r\n    text-transform: uppercase;\r\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r\n      0.2s border-color ease-in-out;\r\n    color: #fff;\r\n    outline: none;\r\n    background: #02b3e4;\r\n    cursor: pointer;\r\n    &:hover {\r\n      background: #148bb1;\r\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1);\r\n    }\r\n  }\r\n}\r\n\r\n.content {\r\n  max-width: 1170px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.current {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  width: 600px;\r\n  height: 150px;\r\n  margin: 0 auto;\r\n  padding: 20px 0;\r\n  border-radius: 6px;\r\n  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);\r\n  transition: all 0.3s ease;\r\n  background: #fff;\r\n  &:hover {\r\n    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);\r\n    cursor: pointer;\r\n  }\r\n  &__detail {\r\n    display: flex;\r\n    justify-content: space-between;\r\n    width: 500px;\r\n    margin-bottom: 10px;\r\n  }\r\n  &__info {\r\n    display: flex;\r\n    justify-content: center;\r\n    width: calc(100% / 3);\r\n  }\r\n  &__num {\r\n    margin: 0 5px;\r\n  }\r\n  &__condition {\r\n    margin-top: 10px;\r\n  }\r\n}\r\n\r\n.days {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.day {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-wrap: wrap;\r\n  text-align: center;\r\n  background: #fff;\r\n  border-radius: 6px;\r\n  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);\r\n  transition: all 0.3s ease;\r\n  margin: 10px;\r\n  &:hover {\r\n    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);\r\n    cursor: pointer;\r\n  }\r\n  &__title {\r\n    width: 100%;\r\n    align-self: center;\r\n    margin: 15px 0;\r\n  }\r\n  &__temp {\r\n    width: 100%;\r\n    margin: 15px 0;\r\n  }\r\n  &__summary {\r\n    width: 100%;\r\n    margin: 15px 0;\r\n  }\r\n}\r\n","@import url(\"https://fonts.googleapis.com/css?family=Open+Sans:300,400,700\");\n* {\n  box-sizing: border-box; }\n\nbody {\n  font-family: \"Open Sans\", sans-serif;\n  background: transparent linear-gradient(to right, #e0eafc, #cfdef3) repeat scroll 0% 0%;\n  color: #525c65; }\n\nh2 {\n  margin: 0;\n  font-size: 20px; }\n\nh3 {\n  margin: 0;\n  font-size: 16px;\n  text-transform: uppercase; }\n\nul {\n  padding: 0;\n  list-style: none; }\n\n.header {\n  max-width: 800px;\n  margin: 0 auto; }\n\n.favorite {\n  display: flex;\n  flex-direction: column;\n  justify-content: center; }\n  .favorite__add {\n    padding: 0.75em 3em;\n    margin-bottom: 10px;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-size: 0.9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .favorite__add:hover {\n      background: #148bb1;\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n  .favorite__clear {\n    padding: 0.75em 3em;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-size: 0.9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .favorite__clear:hover {\n      background: #148bb1;\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n  .favorite__cities {\n    display: flex;\n    flex-wrap: wrap; }\n  .favorite__city {\n    margin-bottom: 10px;\n    width: calc(25% - 6.75px); }\n    .favorite__city:not(:nth-child(4n+1)) {\n      margin-left: 9px; }\n    .favorite__city-button {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      width: 100%;\n      padding: 0.75em 0;\n      border: none;\n      border-radius: 4px;\n      box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n      font-size: 0.9375em;\n      font-weight: 300;\n      letter-spacing: 0.165em;\n      text-transform: uppercase;\n      transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n      color: #fff;\n      outline: none;\n      background: #02d1bf;\n      cursor: pointer; }\n      .favorite__city-button:hover {\n        background: #02ccba;\n        box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n\n.search {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 30px 0; }\n  .search__input {\n    color: #2e3d49;\n    border-radius: 4px;\n    display: block;\n    box-sizing: border-box;\n    width: 300px;\n    font-size: 0.9375em;\n    padding: 0.75em 2.75em 0.75em 1em;\n    border: 1px solid #dbe2e8;\n    box-shadow: 0 0.1em 0.125em 0 rgba(46, 61, 73, 0.08);\n    outline: none;\n    transition: box-shadow 0.3s ease; }\n    .search__input:focus {\n      box-shadow: 0 0.07em 0.1125em 0 rgba(46, 61, 73, 0.06); }\n  .search__button {\n    padding: 0.75em 3em;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-size: 0.9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .search__button:hover {\n      background: #148bb1;\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n\n.content {\n  max-width: 1170px;\n  margin: 0 auto; }\n\n.current {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  width: 600px;\n  height: 150px;\n  margin: 0 auto;\n  padding: 20px 0;\n  border-radius: 6px;\n  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);\n  transition: all 0.3s ease;\n  background: #fff; }\n  .current:hover {\n    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);\n    cursor: pointer; }\n  .current__detail {\n    display: flex;\n    justify-content: space-between;\n    width: 500px;\n    margin-bottom: 10px; }\n  .current__info {\n    display: flex;\n    justify-content: center;\n    width: calc(100% / 3); }\n  .current__num {\n    margin: 0 5px; }\n  .current__condition {\n    margin-top: 10px; }\n\n.days {\n  display: flex;\n  justify-content: space-between; }\n\n.day {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  text-align: center;\n  background: #fff;\n  border-radius: 6px;\n  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);\n  transition: all 0.3s ease;\n  margin: 10px; }\n  .day:hover {\n    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);\n    cursor: pointer; }\n  .day__title {\n    width: 100%;\n    align-self: center;\n    margin: 15px 0; }\n  .day__temp {\n    width: 100%;\n    margin: 15px 0; }\n  .day__summary {\n    width: 100%;\n    margin: 15px 0; }\n"],"sourceRoot":""}]);
+exports.push([module.i, "* {\n  box-sizing: border-box; }\n\nbody {\n  font-family: \"Open Sans\", sans-serif;\n  background: transparent linear-gradient(to right, #e0eafc, #cfdef3) repeat scroll 0% 0%;\n  color: #525c65; }\n\nh2 {\n  margin: 0;\n  font-size: 20px; }\n\nh3 {\n  margin: 0;\n  font-size: 16px;\n  text-transform: uppercase; }\n\nul {\n  padding: 0;\n  list-style: none; }\n\n.header {\n  max-width: 800px;\n  margin: 0 auto; }\n\n.favorite {\n  display: flex;\n  flex-direction: column;\n  justify-content: center; }\n  .favorite__add {\n    padding: 0.75em 3em;\n    margin-bottom: 10px;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-size: 0.9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .favorite__add:hover {\n      background: #148bb1;\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n  .favorite__clear {\n    padding: 0.75em 3em;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-size: 0.9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .favorite__clear:hover {\n      background: #148bb1;\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n  .favorite__cities {\n    display: flex;\n    flex-wrap: wrap; }\n  .favorite__city {\n    margin-bottom: 10px;\n    width: calc(25% - 6.75px); }\n    .favorite__city:not(:nth-child(4n+1)) {\n      margin-left: 9px; }\n    .favorite__city-button {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      width: 100%;\n      padding: 0.75em 0;\n      border: none;\n      border-radius: 4px;\n      box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n      font-size: 0.9375em;\n      font-weight: 300;\n      letter-spacing: 0.165em;\n      text-transform: uppercase;\n      transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n      color: #fff;\n      outline: none;\n      background: #02d1bf;\n      cursor: pointer; }\n      .favorite__city-button:hover {\n        background: #02ccba;\n        box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n\n.search {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 30px 0; }\n  .search__input {\n    color: #2e3d49;\n    border-radius: 4px;\n    display: block;\n    box-sizing: border-box;\n    width: 300px;\n    font-size: 0.9375em;\n    padding: 0.75em 2.75em 0.75em 1em;\n    border: 1px solid #dbe2e8;\n    box-shadow: 0 0.1em 0.125em 0 rgba(46, 61, 73, 0.08);\n    outline: none;\n    transition: box-shadow 0.3s ease; }\n    .search__input:focus {\n      box-shadow: 0 0.07em 0.1125em 0 rgba(46, 61, 73, 0.06); }\n  .search__button {\n    padding: 0.75em 3em;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-size: 0.9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .search__button:hover {\n      background: #148bb1;\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n\n.content {\n  max-width: 1170px;\n  margin: 0 auto; }\n\n.current {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  width: 600px;\n  height: 150px;\n  margin: 0 auto;\n  padding: 20px 0;\n  border-radius: 6px;\n  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);\n  transition: all 0.3s ease;\n  background: #fff; }\n  .current:hover {\n    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);\n    cursor: pointer; }\n  .current__detail {\n    display: flex;\n    justify-content: space-between;\n    width: 500px;\n    margin-bottom: 10px; }\n  .current__info {\n    display: flex;\n    justify-content: center;\n    width: calc(100% / 3); }\n  .current__num {\n    margin: 0 5px; }\n  .current__condition {\n    margin-top: 10px; }\n\n.days {\n  display: flex;\n  justify-content: space-between; }\n\n.day {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  text-align: center;\n  background: #fff;\n  border-radius: 6px;\n  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);\n  transition: all 0.3s ease;\n  margin: 10px; }\n  .day:hover {\n    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);\n    cursor: pointer; }\n  .day__title {\n    width: 100%;\n    align-self: center;\n    margin: 15px 0; }\n  .day__temp {\n    width: 100%;\n    margin: 15px 0; }\n  .day__summary {\n    width: 100%;\n    margin: 15px 0; }\n\n.units {\n  display: flex;\n  justify-content: center; }\n\ninput[name='units'] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  -o-appearance: none;\n  -ms-appearance: none;\n  appearance: none;\n  outline: none; }\n  input[name='units']:after {\n    display: inline-block;\n    text-align: center;\n    font-size: 18px;\n    content: attr(data-units);\n    padding: 0.75em 3em;\n    margin: 10px;\n    border-radius: 4px;\n    color: rgba(255, 255, 255, 0.6);\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    background: #02b3e4;\n    transition: box-shadow 1s, color 1s;\n    cursor: pointer; }\n  input[name='units']:checked:after {\n    box-shadow: inset 6px 6px 15px 2px rgba(0, 0, 0, 0.1);\n    color: #fff; }\n", "", {"version":3,"sources":["C:/home/kottans/task_10/src/scss/src/scss/main.scss","C:/home/kottans/task_10/src/scss/main.scss"],"names":[],"mappings":"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","file":"main.scss","sourcesContent":["@import url(\"https://fonts.googleapis.com/css?family=Open+Sans:300,400,700\");\r\n* {\r\n  box-sizing: border-box;\r\n}\r\n\r\nbody {\r\n  font-family: \"Open Sans\", sans-serif;\r\n  background: rgba(0, 0, 0, 0)\r\n    linear-gradient(to right, rgb(224, 234, 252), rgb(207, 222, 243)) repeat\r\n    scroll 0% 0%;\r\n  color: #525c65;\r\n}\r\n\r\nh2 {\r\n  margin: 0;\r\n  font-size: 20px;\r\n}\r\n\r\nh3 {\r\n  margin: 0;\r\n  font-size: 16px;\r\n  text-transform: uppercase;\r\n}\r\n\r\nul {\r\n  padding: 0;\r\n  list-style: none;\r\n}\r\n\r\n.header {\r\n  max-width: 800px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.favorite {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n\r\n  &__add {\r\n    padding: 0.75em 3em;\r\n    margin-bottom: 10px;\r\n    border: none;\r\n    border-radius: 4px;\r\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\r\n    font-size: 0.9375em;\r\n    font-weight: 300;\r\n    letter-spacing: 0.165em;\r\n    text-transform: uppercase;\r\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r\n      0.2s border-color ease-in-out;\r\n    color: #fff;\r\n    outline: none;\r\n    background: #02b3e4;\r\n    cursor: pointer;\r\n    &:hover {\r\n      background: #148bb1;\r\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1);\r\n    }\r\n  }\r\n\r\n  &__clear{\r\n    padding: 0.75em 3em;\r\n    border: none;\r\n    border-radius: 4px;\r\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\r\n    font-size: 0.9375em;\r\n    font-weight: 300;\r\n    letter-spacing: 0.165em;\r\n    text-transform: uppercase;\r\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r\n      0.2s border-color ease-in-out;\r\n    color: #fff;\r\n    outline: none;\r\n    background: #02b3e4;\r\n    cursor: pointer;\r\n    &:hover {\r\n      background: #148bb1;\r\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1);\r\n    }\r\n  }\r\n\r\n  &__cities {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n  }\r\n\r\n  &__city {\r\n    &:not(:nth-child(4n+1)) {\r\n      margin-left: 9px;\r\n    }\r\n    margin-bottom: 10px;\r\n    width: calc(25% - 6.75px);\r\n\r\n    &-button {\r\n      display: flex;\r\n      justify-content: center;\r\n      align-items: center;\r\n      width: 100%;\r\n      padding: 0.75em 0;\r\n      border: none;\r\n      border-radius: 4px;\r\n      box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\r\n      font-size: 0.9375em;\r\n      font-weight: 300;\r\n      letter-spacing: 0.165em;\r\n      text-transform: uppercase;\r\n      transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r\n      0.2s border-color ease-in-out;\r\n      color: #fff;\r\n      outline: none;\r\n      background: #02d1bf;\r\n      cursor: pointer;\r\n    &:hover {\r\n      background: #02ccba;\r\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1);\r\n    }\r\n    }\r\n    \r\n  }\r\n}\r\n\r\n.search {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  padding: 30px 0;\r\n  &__input {\r\n    color: #2e3d49;\r\n    border-radius: 4px;\r\n    display: block;\r\n    box-sizing: border-box;\r\n    width: 300px;\r\n    font-size: 0.9375em;\r\n    padding: 0.75em 2.75em 0.75em 1em;\r\n    border: 1px solid #dbe2e8;\r\n    box-shadow: 0 0.1em 0.125em 0 rgba(46, 61, 73, 0.08);\r\n    outline: none;\r\n    transition: box-shadow 0.3s ease;\r\n    &:focus {\r\n      box-shadow: 0 0.07em 0.1125em 0 rgba(46, 61, 73, 0.06);\r\n    }\r\n  }\r\n  &__button {\r\n    padding: 0.75em 3em;\r\n    border: none;\r\n    border-radius: 4px;\r\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\r\n    font-size: 0.9375em;\r\n    font-weight: 300;\r\n    letter-spacing: 0.165em;\r\n    text-transform: uppercase;\r\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r\n      0.2s border-color ease-in-out;\r\n    color: #fff;\r\n    outline: none;\r\n    background: #02b3e4;\r\n    cursor: pointer;\r\n    &:hover {\r\n      background: #148bb1;\r\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1);\r\n    }\r\n  }\r\n}\r\n\r\n.content {\r\n  max-width: 1170px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.current {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  width: 600px;\r\n  height: 150px;\r\n  margin: 0 auto;\r\n  padding: 20px 0;\r\n  border-radius: 6px;\r\n  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);\r\n  transition: all 0.3s ease;\r\n  background: #fff;\r\n  &:hover {\r\n    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);\r\n    cursor: pointer;\r\n  }\r\n  &__detail {\r\n    display: flex;\r\n    justify-content: space-between;\r\n    width: 500px;\r\n    margin-bottom: 10px;\r\n  }\r\n  &__info {\r\n    display: flex;\r\n    justify-content: center;\r\n    width: calc(100% / 3);\r\n  }\r\n  &__num {\r\n    margin: 0 5px;\r\n  }\r\n  &__condition {\r\n    margin-top: 10px;\r\n  }\r\n}\r\n\r\n.days {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.day {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-wrap: wrap;\r\n  text-align: center;\r\n  background: #fff;\r\n  border-radius: 6px;\r\n  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);\r\n  transition: all 0.3s ease;\r\n  margin: 10px;\r\n  &:hover {\r\n    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);\r\n    cursor: pointer;\r\n  }\r\n  &__title {\r\n    width: 100%;\r\n    align-self: center;\r\n    margin: 15px 0;\r\n  }\r\n  &__temp {\r\n    width: 100%;\r\n    margin: 15px 0;\r\n  }\r\n  &__summary {\r\n    width: 100%;\r\n    margin: 15px 0;\r\n  }\r\n}\r\n.units {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\ninput[name='units'] {\r\n  -webkit-appearance: none;\r\n  -moz-appearance: none;\r\n  -o-appearance: none;\r\n  -ms-appearance: none;\r\n  appearance: none;\r\n  outline: none;\r\n\r\n  &:after {\r\n      display: inline-block;\r\n      text-align: center;\r\n      font-size: 18px;\r\n      content: attr(data-units);\r\n      padding: 0.75em 3em;\r\n      margin: 10px;\r\n      border-radius: 4px;\r\n      color: rgba(255,255,255,.6);\r\n      box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\r\n      font-weight: 300;\r\n      letter-spacing: 0.165em;\r\n      text-transform: uppercase;\r\n      background: #02b3e4;\r\n      transition: box-shadow 1s, color 1s;\r\n      cursor: pointer;\r\n  }\r\n  \r\n  &:checked {\r\n      &:after {\r\n        box-shadow: inset 6px 6px 15px 2px rgba(0, 0, 0, 0.1);\r\n        color: #fff;\r\n      }\r\n  }\r\n}","@import url(\"https://fonts.googleapis.com/css?family=Open+Sans:300,400,700\");\n* {\n  box-sizing: border-box; }\n\nbody {\n  font-family: \"Open Sans\", sans-serif;\n  background: transparent linear-gradient(to right, #e0eafc, #cfdef3) repeat scroll 0% 0%;\n  color: #525c65; }\n\nh2 {\n  margin: 0;\n  font-size: 20px; }\n\nh3 {\n  margin: 0;\n  font-size: 16px;\n  text-transform: uppercase; }\n\nul {\n  padding: 0;\n  list-style: none; }\n\n.header {\n  max-width: 800px;\n  margin: 0 auto; }\n\n.favorite {\n  display: flex;\n  flex-direction: column;\n  justify-content: center; }\n  .favorite__add {\n    padding: 0.75em 3em;\n    margin-bottom: 10px;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-size: 0.9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .favorite__add:hover {\n      background: #148bb1;\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n  .favorite__clear {\n    padding: 0.75em 3em;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-size: 0.9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .favorite__clear:hover {\n      background: #148bb1;\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n  .favorite__cities {\n    display: flex;\n    flex-wrap: wrap; }\n  .favorite__city {\n    margin-bottom: 10px;\n    width: calc(25% - 6.75px); }\n    .favorite__city:not(:nth-child(4n+1)) {\n      margin-left: 9px; }\n    .favorite__city-button {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      width: 100%;\n      padding: 0.75em 0;\n      border: none;\n      border-radius: 4px;\n      box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n      font-size: 0.9375em;\n      font-weight: 300;\n      letter-spacing: 0.165em;\n      text-transform: uppercase;\n      transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n      color: #fff;\n      outline: none;\n      background: #02d1bf;\n      cursor: pointer; }\n      .favorite__city-button:hover {\n        background: #02ccba;\n        box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n\n.search {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 30px 0; }\n  .search__input {\n    color: #2e3d49;\n    border-radius: 4px;\n    display: block;\n    box-sizing: border-box;\n    width: 300px;\n    font-size: 0.9375em;\n    padding: 0.75em 2.75em 0.75em 1em;\n    border: 1px solid #dbe2e8;\n    box-shadow: 0 0.1em 0.125em 0 rgba(46, 61, 73, 0.08);\n    outline: none;\n    transition: box-shadow 0.3s ease; }\n    .search__input:focus {\n      box-shadow: 0 0.07em 0.1125em 0 rgba(46, 61, 73, 0.06); }\n  .search__button {\n    padding: 0.75em 3em;\n    border: none;\n    border-radius: 4px;\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-size: 0.9375em;\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out,\r 0.2s border-color ease-in-out;\n    color: #fff;\n    outline: none;\n    background: #02b3e4;\n    cursor: pointer; }\n    .search__button:hover {\n      background: #148bb1;\n      box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.1); }\n\n.content {\n  max-width: 1170px;\n  margin: 0 auto; }\n\n.current {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  width: 600px;\n  height: 150px;\n  margin: 0 auto;\n  padding: 20px 0;\n  border-radius: 6px;\n  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);\n  transition: all 0.3s ease;\n  background: #fff; }\n  .current:hover {\n    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);\n    cursor: pointer; }\n  .current__detail {\n    display: flex;\n    justify-content: space-between;\n    width: 500px;\n    margin-bottom: 10px; }\n  .current__info {\n    display: flex;\n    justify-content: center;\n    width: calc(100% / 3); }\n  .current__num {\n    margin: 0 5px; }\n  .current__condition {\n    margin-top: 10px; }\n\n.days {\n  display: flex;\n  justify-content: space-between; }\n\n.day {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  text-align: center;\n  background: #fff;\n  border-radius: 6px;\n  box-shadow: 5px 5px 25px 0px rgba(46, 61, 73, 0.2);\n  transition: all 0.3s ease;\n  margin: 10px; }\n  .day:hover {\n    box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2);\n    cursor: pointer; }\n  .day__title {\n    width: 100%;\n    align-self: center;\n    margin: 15px 0; }\n  .day__temp {\n    width: 100%;\n    margin: 15px 0; }\n  .day__summary {\n    width: 100%;\n    margin: 15px 0; }\n\n.units {\n  display: flex;\n  justify-content: center; }\n\ninput[name='units'] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  -o-appearance: none;\n  -ms-appearance: none;\n  appearance: none;\n  outline: none; }\n  input[name='units']:after {\n    display: inline-block;\n    text-align: center;\n    font-size: 18px;\n    content: attr(data-units);\n    padding: 0.75em 3em;\n    margin: 10px;\n    border-radius: 4px;\n    color: rgba(255, 255, 255, 0.6);\n    box-shadow: 6px 8px 10px rgba(0, 0, 0, 0.1);\n    font-weight: 300;\n    letter-spacing: 0.165em;\n    text-transform: uppercase;\n    background: #02b3e4;\n    transition: box-shadow 1s, color 1s;\n    cursor: pointer; }\n  input[name='units']:checked:after {\n    box-shadow: inset 6px 6px 15px 2px rgba(0, 0, 0, 0.1);\n    color: #fff; }\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -15597,9 +15611,10 @@ var Coordinates = function () {
 }();
 
 var Weather = function () {
-    function Weather(data) {
+    function Weather(data, units) {
         _classCallCheck(this, Weather);
 
+        this.units = units;
         this.info = {
             coordinates: {
                 city: data.address_components[0].long_name,
@@ -15613,10 +15628,7 @@ var Weather = function () {
                 forecast: 'https://api.weatherbit.io/v2.0/forecast/daily'
             },
             key: '5499a420699d421297f7f99e774cfc94',
-            units: {
-                fahrenheit: 'I',
-                metric: 'M'
-            },
+            units: this.units,
             days: '5'
         };
     }
@@ -15627,7 +15639,7 @@ var Weather = function () {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                var url = _this2.settings.url.weather + '?lat=' + _this2.info.coordinates.lat + '&lon=' + _this2.info.coordinates.lng + '&key=' + _this2.settings.key + '&units=' + _this2.settings.units.metric;
+                var url = _this2.settings.url.weather + '?lat=' + _this2.info.coordinates.lat + '&lon=' + _this2.info.coordinates.lng + '&key=' + _this2.settings.key + '&units=' + _this2.settings.units;
                 fetch(url).then(function (response) {
                     return resolve(response.json());
                 });
@@ -15639,7 +15651,7 @@ var Weather = function () {
             var _this3 = this;
 
             return new Promise(function (resolve) {
-                var url = _this3.settings.url.forecast + '?lat=' + _this3.info.coordinates.lat + '&lon=' + _this3.info.coordinates.lng + '&key=' + _this3.settings.key + '&units=' + _this3.settings.units.metric + '&days=' + _this3.settings.days;
+                var url = _this3.settings.url.forecast + '?lat=' + _this3.info.coordinates.lat + '&lon=' + _this3.info.coordinates.lng + '&key=' + _this3.settings.key + '&units=' + _this3.settings.units + '&days=' + _this3.settings.days;
                 fetch(url).then(function (response) {
                     return resolve(response.json());
                 });
@@ -17214,7 +17226,7 @@ http.METHODS = [
 /* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(44)
 var inherits = __webpack_require__(0)
 var response = __webpack_require__(45)
-var stream = __webpack_require__(15)
+var stream = __webpack_require__(16)
 var toArrayBuffer = __webpack_require__(105)
 
 var IncomingMessage = response.IncomingMessage
@@ -17994,7 +18006,7 @@ module.exports = PassThrough;
 var Transform = __webpack_require__(49);
 
 /*<replacement>*/
-var util = __webpack_require__(16);
+var util = __webpack_require__(17);
 util.inherits = __webpack_require__(0);
 /*</replacement>*/
 
@@ -18379,7 +18391,7 @@ exports.create = function(size) {
 
 
 exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = __webpack_require__(13)
-exports.createHash = exports.Hash = __webpack_require__(17)
+exports.createHash = exports.Hash = __webpack_require__(18)
 exports.createHmac = exports.Hmac = __webpack_require__(52)
 
 var algos = __webpack_require__(125)
@@ -18622,14 +18634,14 @@ module.exports = __webpack_require__(12);
 /* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(15).Transform
+module.exports = __webpack_require__(16).Transform
 
 
 /***/ }),
 /* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(15).PassThrough
+module.exports = __webpack_require__(16).PassThrough
 
 
 /***/ }),
@@ -19595,7 +19607,7 @@ exports.decrypt = function (self, block) {
 /* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var xor = __webpack_require__(18)
+var xor = __webpack_require__(19)
 
 exports.encrypt = function (self, block) {
   var data = xor(block, self._prev)
@@ -19619,7 +19631,7 @@ exports.decrypt = function (self, block) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(2).Buffer
-var xor = __webpack_require__(18)
+var xor = __webpack_require__(19)
 
 function encryptStart (self, data, decrypt) {
   var len = data.length
@@ -19736,7 +19748,7 @@ exports.encrypt = function (self, chunk, decrypt) {
 /* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var xor = __webpack_require__(18)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var xor = __webpack_require__(19)
 
 function getBlock (self) {
   self._prev = self._cipher.encryptBlock(self._prev)
@@ -20994,7 +21006,7 @@ function formatReturnValue(bn, enc) {
 /* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(17)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(18)
 var stream = __webpack_require__(26)
 var inherits = __webpack_require__(0)
 var sign = __webpack_require__(152)
@@ -23561,7 +23573,7 @@ exports.sha512 = __webpack_require__(69);
 
 
 var utils = __webpack_require__(8);
-var common = __webpack_require__(19);
+var common = __webpack_require__(20);
 var shaCommon = __webpack_require__(67);
 
 var rotl32 = utils.rotl32;
@@ -23721,7 +23733,7 @@ SHA384.prototype._digest = function digest(enc) {
 
 
 var utils = __webpack_require__(8);
-var common = __webpack_require__(19);
+var common = __webpack_require__(20);
 
 var rotl32 = utils.rotl32;
 var sum32 = utils.sum32;
@@ -25651,7 +25663,7 @@ module.exports = Signature;
 // Fedor, you are amazing.
 
 
-var asn1 = __webpack_require__(20)
+var asn1 = __webpack_require__(21)
 
 exports.certificate = __webpack_require__(185)
 
@@ -25775,7 +25787,7 @@ exports.signature = asn1.define('signature', function () {
 /* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var asn1 = __webpack_require__(20);
+var asn1 = __webpack_require__(21);
 var inherits = __webpack_require__(0);
 
 var api = exports;
@@ -26128,9 +26140,9 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
 /* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Reporter = __webpack_require__(21).Reporter;
-var EncoderBuffer = __webpack_require__(21).EncoderBuffer;
-var DecoderBuffer = __webpack_require__(21).DecoderBuffer;
+var Reporter = __webpack_require__(22).Reporter;
+var EncoderBuffer = __webpack_require__(22).EncoderBuffer;
+var DecoderBuffer = __webpack_require__(22).DecoderBuffer;
 var assert = __webpack_require__(7);
 
 // Supported tags
@@ -26924,7 +26936,7 @@ PEMEncoder.prototype.encode = function encode(data, options) {
 
 
 
-var asn = __webpack_require__(20)
+var asn = __webpack_require__(21)
 
 var Time = asn.define('Time', function () {
   this.choice({
@@ -27292,7 +27304,7 @@ exports.publicDecrypt = function publicDecrypt(key, buf) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(30);
 var randomBytes = __webpack_require__(13);
-var createHash = __webpack_require__(17);
+var createHash = __webpack_require__(18);
 var mgf = __webpack_require__(75);
 var xor = __webpack_require__(76);
 var bn = __webpack_require__(3);
@@ -27396,7 +27408,7 @@ var mgf = __webpack_require__(75);
 var xor = __webpack_require__(76);
 var bn = __webpack_require__(3);
 var crt = __webpack_require__(40);
-var createHash = __webpack_require__(17);
+var createHash = __webpack_require__(18);
 var withPublic = __webpack_require__(77);
 module.exports = function privateDecrypt(private_key, enc, reverse) {
   var padding;
@@ -29133,7 +29145,7 @@ var _icon = __webpack_require__(78);
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _component = __webpack_require__(22);
+var _component = __webpack_require__(15);
 
 var _component2 = _interopRequireDefault(_component);
 
@@ -29194,7 +29206,7 @@ var _date = __webpack_require__(208);
 
 var _date2 = _interopRequireDefault(_date);
 
-var _component = __webpack_require__(22);
+var _component = __webpack_require__(15);
 
 var _component2 = _interopRequireDefault(_component);
 
@@ -29365,13 +29377,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _component = __webpack_require__(22);
+var _component = __webpack_require__(15);
 
 var _component2 = _interopRequireDefault(_component);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -29387,7 +29397,9 @@ var Search = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
 
-        _this.state = { isValid: true };
+        _this.state = {
+            isValid: true
+        };
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.host = document.createElement('div');
         _this.host.classList.add('search-container');
@@ -29400,7 +29412,6 @@ var Search = function (_Component) {
         value: function handleSubmit(ev) {
             ev.preventDefault();
             var city = ev.target.elements.search.value.trim();
-
             if (!city.length) {
                 this.updateState({ isValid: false });
             } else {
@@ -29408,30 +29419,28 @@ var Search = function (_Component) {
             }
         }
     }, {
-        key: '_render',
-        value: function _render() {
-            var children = this.render();
-
-            this.host.innerHTML = '';
-            if (typeof children === 'string') {
-                this.host.innerHTML = children;
-            } else if (Array.isArray(children)) {
-                var _host;
-
-                (_host = this.host).append.apply(_host, _toConsumableArray(children));
-            } else {
-                this.host.append(children);
-            }
-
-            return this.host;
-        }
-    }, {
         key: 'render',
         value: function render() {
             var isValid = this.state.isValid;
             var city = this.props.city;
 
-            return '\n        <form class=' + (isValid ? '"search"' : '"search-invalid"') + '>\n            <input name=\'search\' required class=\'search__input\' value=\'' + city + '\'>\n            <button class=\'search__button\'>Start</button>\n        </form>';
+            var form = document.createElement('form');
+            var input = document.createElement('input');
+            var button = document.createElement('button');
+
+            form.classList.add(isValid ? 'search' : 'search-invalid');
+
+            input.classList.add('search__input');
+            input.name = 'search';
+            input.required = true;
+            input.value = city;
+
+            button.classList.add('search__button');
+            button.innerText = 'start';
+
+            form.append(input, button);
+
+            return form;
         }
     }]);
 
@@ -29470,7 +29479,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _component = __webpack_require__(22);
+var _component = __webpack_require__(15);
 
 var _component2 = _interopRequireDefault(_component);
 
@@ -29592,6 +29601,94 @@ var Favorite = function (_Component) {
 }(_component2.default);
 
 exports.default = Favorite;
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _component = __webpack_require__(15);
+
+var _component2 = _interopRequireDefault(_component);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Units = function (_Component) {
+    _inherits(Units, _Component);
+
+    function Units(props) {
+        _classCallCheck(this, Units);
+
+        var _this = _possibleConstructorReturn(this, (Units.__proto__ || Object.getPrototypeOf(Units)).call(this, props));
+
+        _this.state = {
+            units: localStorage.units || 'M'
+        };
+        _this.changeUnits = _this.changeUnits.bind(_this);
+        _this.host = document.createElement('div');
+        _this.host.classList.add('units');
+
+        _this.celsiusInput = document.createElement('input');
+        _this.fahrenheitInput = document.createElement('input');
+
+        _this.celsiusInput.type = 'radio';
+        _this.celsiusInput.name = 'units';
+        _this.celsiusInput.checked = true;
+        _this.celsiusInput.dataset.units = 'C';
+        _this.celsiusInput.value = 'M';
+
+        _this.fahrenheitInput.type = 'radio';
+        _this.fahrenheitInput.name = 'units';
+        _this.fahrenheitInput.dataset.units = 'F';
+        _this.fahrenheitInput.value = 'I';
+
+        _this.celsiusInput.addEventListener('change', _this.changeUnits);
+        _this.fahrenheitInput.addEventListener('change', _this.changeUnits);
+        _this.setChecked(_this.celsiusInput, _this.fahrenheitInput);
+        return _this;
+    }
+
+    _createClass(Units, [{
+        key: 'changeUnits',
+        value: function changeUnits(ev) {
+            var units = ev.target.value;
+            localStorage.setItem('units', units);
+            this.props.onSwitch(units);
+        }
+    }, {
+        key: 'setChecked',
+        value: function setChecked(a, b) {
+            if (this.state.units === 'M') {
+                a.checked = true;
+            } else {
+                b.checked = true;
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return [this.celsiusInput, this.fahrenheitInput];
+        }
+    }]);
+
+    return Units;
+}(_component2.default);
+
+exports.default = Units;
 
 /***/ })
 /******/ ]);
