@@ -1,4 +1,5 @@
 import Component from '../st/component';
+import autoComplete from '../utils/autocomplete';
 
 class Search extends Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class Search extends Component {
         if (!city.length) {
             this.updateState({ isValid: false });
         } else {
+            this.updateState({ isValid: true });
             this.props.onSubmit(city);
         }
     }
@@ -28,13 +30,14 @@ class Search extends Component {
         const form = document.createElement('form');
         const input = document.createElement('input');
         const button = document.createElement('button');
+        autoComplete(input);
         
 
         form.classList.add( isValid ? 'search' : 'search-invalid' );
         
         input.classList.add('search__input');
         input.name = 'search';
-        input.required = true;
+        // input.required = true;
         input.value = city;
         
         button.classList.add('search__button');

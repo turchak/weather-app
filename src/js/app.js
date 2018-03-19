@@ -38,14 +38,8 @@ class App extends Component {
             .then( results => {
                 this.weather(results, units).then(([current, week]) => {
                     this.updateState({ city, current, week });
-                    autoComplete(document.querySelector('.search__input'));
                 });
             });
-    }
-
-    init() {
-        this.update();
-        autoComplete(document.querySelector('.search__input'));
     }
 
     changeUnits(units) {
@@ -69,4 +63,4 @@ class App extends Component {
 }
 
 const app = new App({ host: document.querySelector('.content') });
-app.init();
+app.update();

@@ -59,13 +59,11 @@ class Favorite extends Component {
 
     clearFavorite() {
         localStorage.removeItem('favorites');
-        const list = this.state.list.slice();
-        list.splice(0, list.length);
-        this.updateState({ list });
+        this.updateState({ list: [] });
     }
 
     checkCities(city) {
-        const list = this.state.list.slice();
+        const list = this.state.list;
         return list.includes(city);
     }
 
